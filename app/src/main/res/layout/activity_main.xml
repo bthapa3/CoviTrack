@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="179dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/bg"
+        android:fontFamily="cursive"
+        android:paddingVertical="70dp"
+        android:text="You have logged in"
+        android:textAlignment="center"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/name_display"
+        android:layout_width="429dp"
+        android:layout_height="48dp"
+        android:text="Name " />
+
+    <TextView
+        android:id="@+id/email_display"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:text="Email" />
+
+    <TextView
+        android:id="@+id/phone_display"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:text="Phone" />
+
+    <TextView
+        android:id="@+id/userID_display"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="User_ID" />
+
+    <EditText
+        android:id="@+id/groupname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter group name"
+        android:inputType="textPersonName"
+        android:text=""
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/create_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="Create_Group"
+        android:text="Create Group" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="Logout"
+        android:text="Logout" />
+
+
+</LinearLayout>
