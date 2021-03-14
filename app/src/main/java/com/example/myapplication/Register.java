@@ -116,8 +116,9 @@ public class Register extends AppCompatActivity {
         userID=fAuth.getCurrentUser().getUid();
         FirebaseDatabase rootNode=FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("Users");
-        UserHelperClass Userdata=new UserHelperClass(userID, name,email,phone);
+        Users Userdata=new Users(userID, name,email,phone,"null","null","null","null",0);
         reference.child(userID).setValue(Userdata);
+
         //reference.child(userID).setValue("groups");
 
     }
