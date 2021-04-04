@@ -13,16 +13,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.MainActivity;
-import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Vector;
 
 public class Register extends AppCompatActivity {
     EditText mFullName, mEmail,mPassword,mPasswordCheck, mPhone;
@@ -53,7 +49,7 @@ public class Register extends AppCompatActivity {
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                startActivity(new Intent(getApplicationContext(), login.class));
+                startActivity(new Intent(getApplicationContext(), Login.class));
                 finish();
             }
         });
@@ -116,11 +112,10 @@ public class Register extends AppCompatActivity {
         userID=fAuth.getCurrentUser().getUid();
         FirebaseDatabase rootNode=FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("Users");
-        Users Userdata=new Users(userID, name,email,phone,"null","null","null","null",0);
+        Users Userdata=new Users(userID, name,email,phone,"null","null","null","null",0,"member",false,false);
         reference.child(userID).setValue(Userdata);
 
         //reference.child(userID).setValue("groups");
-
     }
 
 }
