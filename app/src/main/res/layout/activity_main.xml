@@ -23,27 +23,40 @@
         android:id="@+id/gotogroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="484dp"
+        android:layout_marginBottom="520dp"
         android:onClick="GotoGroup"
         android:text="Go to Groups"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.116"
+        app:layout_constraintHorizontal_bias="0.018"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/group4view" />
 
     <Switch
         android:id="@+id/statusswitch"
-        android:layout_width="156dp"
-        android:layout_height="27dp"
-        android:text="Covid Positive"
+        android:layout_width="403dp"
+        android:layout_height="23dp"
+        android:onClick="ChangeStatus"
+        android:text="Are you Covid Positive?"
         app:layout_constraintBottom_toTopOf="@+id/gotogroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.532"
-        android:onClick="ChangeStatus"/>
+        app:layout_constraintVertical_bias="0.556" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="413dp"
+        android:layout_height="29dp"
+        android:text="Alert: Someone in your close contact tested positive recently."
+        app:layout_constraintBottom_toTopOf="@+id/statusswitch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.45" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

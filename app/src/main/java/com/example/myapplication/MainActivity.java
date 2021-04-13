@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 Users student = Datasnapshot.child(r_id).getValue(Users.class);
                 Switch simpleSwitch = (Switch) findViewById(R.id.statusswitch);
 
-                //Setting the covid infected true or false based on the value on database.
+                //Setting the Covid-19 infection status true or false based on the value on database.
                 if(student.infected.equals(true)){
                     simpleSwitch.setChecked(true);
                 }
