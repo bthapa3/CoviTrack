@@ -6,57 +6,96 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <Button
         android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_width="413dp"
+        android:layout_height="48dp"
         android:onClick="Logout"
         android:text="Logout"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-
     <Button
         android:id="@+id/gotogroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="520dp"
+        android:layout_width="202dp"
+        android:layout_height="43dp"
         android:onClick="GotoGroup"
         android:text="Go to Groups"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.018"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/group4view" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.414" />
 
     <Switch
         android:id="@+id/statusswitch"
-        android:layout_width="403dp"
-        android:layout_height="23dp"
+        android:layout_width="348dp"
+        android:layout_height="34dp"
         android:onClick="ChangeStatus"
         android:text="Are you Covid Positive?"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/gotogroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.253"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.556" />
+        app:layout_constraintVertical_bias="0.074" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="413dp"
-        android:layout_height="29dp"
-        android:text="Alert: Someone in your close contact tested positive recently."
-        app:layout_constraintBottom_toTopOf="@+id/statusswitch"
+        android:id="@+id/risknotification"
+        android:layout_width="371dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="16dp"
+        android:text="."
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:visibility="invisible"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintTop_toBottomOf="@+id/statusswitch" />
+
+    <Button
+        android:id="@+id/riskread"
+        android:layout_width="202dp"
+        android:layout_height="43dp"
+        android:text="Mark as Read"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/risknotification"
+        app:layout_constraintVertical_bias="0.094" />
+
+    <TextView
+        android:id="@+id/dateview"
+        android:layout_width="378dp"
+        android:layout_height="35dp"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/riskread"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/risknotification"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/covidchart"
+        android:layout_width="368dp"
+        android:layout_height="284dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gotogroup"
+        app:layout_constraintVertical_bias="0.077">
+
+    </com.github.mikephil.charting.charts.LineChart>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

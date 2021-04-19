@@ -10,16 +10,30 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,19 +41,40 @@ public class MainActivity extends AppCompatActivity {
     // r_id represents the user ID value stored in the database. It helps to uniquely identify a person.
     String r_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
     // user reference is the database reference for user names and their related data. It is used when we need to access or delete the groups from database.
-    DatabaseReference userreference = FirebaseDatabase.getInstance().getReference().child("Users");
+    DatabaseReference user_reference = FirebaseDatabase.getInstance().getReference().child("Users");
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DocumentReference datesref = db.collection("latest-dates").document(r_id);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        userreference.addValueEventListener(new ValueEventListener() {
+        Button mark_risk= (Button) findViewById(R.id.riskread);
+        mark_risk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               user_reference.child(r_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                   @Override
+                   public void onComplete(@NonNull Task<DataSnapshot> task) {
+                       Users user = task.getResult().getValue(Users.class);
+                       user.transferrisk=false;
+                       user_reference.child(r_id).setValue(user);
+                   }
+               });
+            }
+        });
+
+
+        user_reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot Datasnapshot) {
 
                 //populating text box with the user groups data.
                 Users student = Datasnapshot.child(r_id).getValue(Users.class);
                 Switch simpleSwitch = (Switch) findViewById(R.id.statusswitch);
+                TextView Notification = (TextView) findViewById(R.id.risknotification);
+                Button risk_button= (Button) findViewById(R.id.riskread);
 
                 //Setting the Covid-19 infection status true or false based on the value on database.
                 if(student.infected.equals(true)){
@@ -48,12 +83,56 @@ public class MainActivity extends AppCompatActivity {
                 if(student.infected.equals(false)){
                     simpleSwitch.setChecked(false);
                 }
+                if(student.transferrisk.equals(true)){
+                    risk_button.setVisibility(View.VISIBLE);
+                    Notification.setText("Alert: Someone in your close contact tested positive recently");
+                }
+
+                if(student.transferrisk.equals(false)){
+                    risk_button.setVisibility(View.INVISIBLE);
+                    Notification.setText("Our system does not indicate any risk of COVID-19 for you at the moment");
+                }
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        //getting latest data of transmission
+        datesref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    //capturing the document that holds the timestamp object
+                    //if there was no document for the id there was no record of threat from covid
+                    //does not need to display dates from recent threat so this does not run
+                    if (document.exists()) {
+
+                        //storing document on map inorder to access timestamp easily
+                        Map<String, Object> map = document.getData();
+
+                        //Type cast needed as document does not initially pass as timestamp object.
+                        Timestamp timestamp = (Timestamp) map.get("timestamp");
+                        //getting date format from the timestamp
+                        Date date = timestamp.toDate();
+
+                        //converting to user readable format to display to user
+                        SimpleDateFormat simpleformat = new SimpleDateFormat("yyyy-MM-dd");
+                        String alertdate = simpleformat.format(date);
+
+                        //Using Lastalert textview to display the latest date that system detected threat for user.
+
+                        TextView Lastalert= (TextView) findViewById(R.id.dateview);
+                        Lastalert.setText("Last Alert was on: "+ alertdate.toString());
+                        Lastalert.setTextSize(20);
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "Error with the database!Try again", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -87,10 +166,9 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-
     // this function changes the covid infection status
     public void ChangeStatus(View view){
-        userreference.addValueEventListener(new ValueEventListener() {
+        user_reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot Datasnapshot) {
 
@@ -101,11 +179,11 @@ public class MainActivity extends AppCompatActivity {
 
                 if(switchState.equals(true)){
                     user.infected=true;
-                    userreference.child(r_id).setValue(user);
+                    user_reference.child(r_id).setValue(user);
                 }
                 else{
                     user.infected=false;
-                    userreference.child(r_id).setValue(user);
+                    user_reference.child(r_id).setValue(user);
                 }
 
             }
