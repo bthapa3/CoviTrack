@@ -28,10 +28,10 @@
         android:text="Go to Groups"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.414" />
+        app:layout_constraintVertical_bias="0.328" />
 
     <Switch
         android:id="@+id/statusswitch"
@@ -85,15 +85,16 @@
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/covidchart"
-        android:layout_width="368dp"
-        android:layout_height="284dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="420dp"
+        android:layout_height="360dp"
+        android:layout_marginTop="26dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintHorizontal_bias="0.537"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gotogroup"
-        app:layout_constraintVertical_bias="0.077">
+        app:layout_constraintVertical_bias="0.179"
+        tools:ignore="MissingClass">
 
     </com.github.mikephil.charting.charts.LineChart>
 

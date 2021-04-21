@@ -9,6 +9,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
@@ -32,6 +40,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -44,12 +53,49 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference user_reference = FirebaseDatabase.getInstance().getReference().child("Users");
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference datesref = db.collection("latest-dates").document(r_id);
+    private static final String TAG="MainActivity";
+
+    private LineChart mChart;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mChart=(LineChart) findViewById(R.id.covidchart);
+
+
+        mChart.setDragEnabled(true);
+        mChart.setScaleEnabled(false);
+
+        ArrayList<Entry> yvalues=new ArrayList<>();
+        yvalues.add(new Entry(1,60f));
+        yvalues.add(new Entry(2,70f));
+        yvalues.add(new Entry(3,80f));
+        yvalues.add(new Entry(4,50f));
+        yvalues.add(new Entry(5,60f));
+        yvalues.add(new Entry(6,40f));
+        yvalues.add(new Entry(7,40f));
+        LineDataSet set1=new LineDataSet(yvalues,"Total Positive Recorded For Last Week");
+        set1.setFillAlpha(110);
+        set1.setColors(Color.RED);
+        set1.setLineWidth(3f);
+        set1.setValueTextSize(15);
+        set1.setValueTextColor(Color.BLUE);
+        mChart.getXAxis().setDrawLabels(false);
+        YAxis yAxis = mChart.getAxisLeft();
+        YAxis rightaxis = mChart.getAxisRight();
+        rightaxis.setDrawLabels(false);
+
+
+        yAxis.setTextSize(15);
+
+        ArrayList<ILineDataSet> dataSets=new ArrayList<>();
+        dataSets.add(set1);
+        LineData data=new LineData(dataSets);
+        mChart.setData(data);
+
+
         Button mark_risk= (Button) findViewById(R.id.riskread);
         mark_risk.setOnClickListener(new View.OnClickListener() {
             @Override
