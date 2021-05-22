@@ -5,15 +5,13 @@ import java.util.Date;
 public class UserGroups {
 
     String group_name;
-    Date latest_infection;
     Integer total_cases;
 
     public UserGroups() {
     }
 
-    public UserGroups(String group_name, Date latest_infection,Integer total_cases) {
+    public UserGroups(String group_name, Integer total_cases) {
         this.group_name = group_name;
-        this.latest_infection = latest_infection;
         this.total_cases=total_cases;
     }
 
@@ -24,15 +22,6 @@ public class UserGroups {
     public void setGroup_name(String group_name) {
         this.group_name = group_name;
     }
-
-    public Date getLatest_infection() {
-        return latest_infection;
-    }
-
-    public void setLatest_infection(Date latest_infection) {
-        this.latest_infection = latest_infection;
-    }
-
 
     public Integer getTotal_cases() {
         return total_cases;

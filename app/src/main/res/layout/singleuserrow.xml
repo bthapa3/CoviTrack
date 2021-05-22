@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="5dp"
+    android:elevation="5dp"
+    app:cardUseCompatPadding="true"
+    android:background="#ffffff"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="#ffffff">
+
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:id="@+id/Name"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Full Name" />
+
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:id="@+id/Phone"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Phone number" />
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:id="@+id/Insurance"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Phone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:text="Insurance Stat" />
+
+        <ImageView
+            android:id="@+id/insuranceview"
+            android:layout_width="74dp"
+            android:layout_height="65dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="0dp"
+            android:layout_toEndOf="@+id/Name"
+            tools:srcCompat="@tools:sample/avatars"
+            />
+
+        <EditText
+            android:textColor="@android:color/black"
+            android:id="@+id/storeid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="null"
+            xmlns:tools="http://schemas.android.com/tools"
+            tools:visibility="invisible"
+            />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

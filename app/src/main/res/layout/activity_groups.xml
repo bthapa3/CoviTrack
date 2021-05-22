@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <Button
         android:id="@+id/button"
@@ -16,10 +17,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:background="@drawable/button_bg"
+        ></Button>
 
 
     <EditText
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
         android:id="@+id/groupname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +35,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        app:backgroundTint="@color/black"/>
 
     <Button
         android:id="@+id/search_group"
@@ -40,10 +46,13 @@
         android:text="Search group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/groupname" />
+        app:layout_constraintTop_toBottomOf="@+id/groupname"
+        android:background="@drawable/button_bg"
+       />
 
     <TextView
-        android:id="@+id/display_group"
+        android:textColor="@android:color/black"
+        android:id="@+id/display_status"
         android:layout_width="395dp"
         android:layout_height="wrap_content"
         android:text=""
@@ -54,15 +63,16 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:textColor="@android:color/black"
         android:id="@+id/display_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="403dp"
+        android:layout_height="17dp"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/display_group"
+        app:layout_constraintTop_toBottomOf="@+id/display_status"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -80,6 +90,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:textColor="@android:color/black"
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,6 +103,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
+        android:textColor="@android:color/black"
         android:id="@+id/group1view"
         android:layout_width="284dp"
         android:layout_height="60dp"
@@ -103,7 +115,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:backgroundTint="@color/black"
+        />
 
     <Button
         android:id="@+id/editgroup1"
@@ -116,9 +130,12 @@
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toEndOf="@+id/group1view"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.023"
+        android:background="@drawable/button_bg"
+        />
 
     <TextView
+        android:textColor="@android:color/black"
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -131,6 +148,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
+        android:textColor="@android:color/black"
         android:id="@+id/group2view"
         android:layout_width="284dp"
         android:layout_height="60dp"
@@ -142,24 +160,29 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:backgroundTint="@color/black"/>
+
 
 
     <Button
         android:id="@+id/editgroup2"
         android:layout_width="115dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
         android:onClick="Edit_Group2"
         android:text="Edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toEndOf="@+id/group2view"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.03" />
+        app:layout_constraintVertical_bias="0.023"
+        android:background="@drawable/button_bg"
+        />
+
 
     <TextView
+        android:textColor="@android:color/black"
         android:id="@+id/textView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -173,6 +196,7 @@
 
 
     <EditText
+        android:textColor="@android:color/black"
         android:id="@+id/group3view"
         android:layout_width="284dp"
         android:layout_height="60dp"
@@ -184,7 +208,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:backgroundTint="@color/black"/>
 
     <Button
         android:id="@+id/editgroup3"
@@ -197,9 +222,12 @@
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toEndOf="@+id/group3view"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.04" />
+        app:layout_constraintVertical_bias="0.04"
+        android:background="@drawable/button_bg"
+        />
 
     <TextView
+        android:textColor="@android:color/black"
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -212,6 +240,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
+        android:textColor="@android:color/black"
         android:id="@+id/group4view"
         android:layout_width="284dp"
         android:layout_height="60dp"
@@ -223,7 +252,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:backgroundTint="@color/black"/>
 
     <Button
         android:id="@+id/editgroup4"
@@ -236,18 +266,79 @@
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toEndOf="@+id/group4view"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.051" />
+        app:layout_constraintVertical_bias="0.051"
+        android:background="@drawable/button_bg"
+        />
 
-    <Button
-        android:id="@+id/gotohome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to Home"
-        android:onClick="GotoMain"
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/group4view" />
+        app:layout_constraintTop_toBottomOf="@+id/covidchart"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_action_name"
+        tools:ignore="VectorDrawableCompat"
+        />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:onClick="GotoHome"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageButton2"
+        app:layout_constraintTop_toBottomOf="@+id/covidchart"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/home"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageButton
+        android:id="@+id/assesButton"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:onClick="GotoAsses"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageButton3"
+        app:layout_constraintTop_toBottomOf="@+id/covidchart"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/assesment"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/assesButton"
+        app:layout_constraintTop_toBottomOf="@+id/covidchart"
+        app:layout_constraintVertical_bias="1.0"
+        android:onClick="GotoUpload"
+        app:srcCompat="@drawable/upload"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageButton
+        android:id="@+id/resources"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:onClick="GotoResources"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/covidchart"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/contents"
+        tools:ignore="VectorDrawableCompat" />
 
 
 

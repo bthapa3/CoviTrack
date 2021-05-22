@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Register extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     EditText mFullName, mEmail,mPassword,mPasswordCheck, mPhone;
     Button mRegisterBtn;
     TextView mLoginBtn;
@@ -49,7 +49,7 @@ public class Register extends AppCompatActivity {
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                startActivity(new Intent(getApplicationContext(), Login.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
             }
         });
@@ -74,7 +74,7 @@ public class Register extends AppCompatActivity {
                 if (!password.equals(passwordCheck)){
                     mPasswordCheck.setError("Passwords value do not match with each other");
 
-                    Toast.makeText(Register.this, mPassword.getText() , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, mPassword.getText() , Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -87,12 +87,12 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(Register.this, "user created", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "user created", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
                             StoreUsersData();
                         }
                         else{
-                            Toast.makeText(Register.this, "failed to create user", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "failed to create user", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.INVISIBLE);
                         }
                     }

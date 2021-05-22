@@ -1,100 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".ResourceswebpageActivity"
     android:background="@color/white">
 
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="413dp"
-        android:layout_height="48dp"
-        android:onClick="Logout"
-        android:text="Logout"
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="695dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:background="@drawable/button_bg"/>
-
-    <Switch
-        android:id="@+id/statusswitch"
-        android:layout_width="348dp"
-        android:layout_height="34dp"
-        android:onClick="ChangeStatus"
-        android:text="Are you Covid Positive?"
-        android:textColor="@android:color/black"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.253"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
-
-    <TextView
-        android:id="@+id/risknotification"
-        android:layout_width="371dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@android:color/black"
-        android:text="."
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusswitch" />
-
-    <Button
-        android:id="@+id/riskread"
-        android:layout_width="168dp"
-        android:layout_height="42dp"
-        android:text="Mark as Read"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.446"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/risknotification"
-        app:layout_constraintVertical_bias="0.067"
-        android:background="@drawable/button_bg"
-       />
-
-    <TextView
-        android:id="@+id/dateview"
-        android:layout_width="378dp"
-        android:layout_height="35dp"
-        android:text=""
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/riskread"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/risknotification"
         app:layout_constraintVertical_bias="0.0" />
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/covidchart"
-        android:layout_width="410dp"
-        android:layout_height="343dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/riskread"
-        app:layout_constraintVertical_bias="0.306"
-        tools:ignore="MissingClass">
-
-    </com.github.mikephil.charting.charts.LineChart>
 
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:onClick="GotoGroup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.085"
@@ -106,6 +33,7 @@
 
     <ImageButton
         android:id="@+id/imageButton3"
+        android:onClick="GotoHome"
         android:layout_width="72dp"
         android:layout_height="72dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -121,7 +49,7 @@
         android:id="@+id/assesButton"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:onClick="gotoAsses"
+        android:onClick="GotoAsses"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -135,13 +63,13 @@
         android:id="@+id/imageButton"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:onClick="GotoUpload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/assesButton"
         app:layout_constraintTop_toBottomOf="@+id/covidchart"
         app:layout_constraintVertical_bias="1.0"
+        android:onClick="GotoUpload"
         app:srcCompat="@drawable/upload"
         tools:ignore="VectorDrawableCompat" />
 
@@ -158,6 +86,5 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/contents"
         tools:ignore="VectorDrawableCompat" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

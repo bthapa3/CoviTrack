@@ -1,100 +1,112 @@
-<?xml version="1.0" encoding="utf-8"?>
+
+
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
 
-    <Button
-        android:id="@+id/button"
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/videoview"
         android:layout_width="413dp"
-        android:layout_height="48dp"
-        android:onClick="Logout"
-        android:text="Logout"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="265dp"
+        android:layout_marginTop="4dp"
+        app:autoPlay="false"
+        app:layout_constraintBottom_toTopOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.555"
+        app:showFullScreenButton="false"
+        app:videoId="DCdxsnRF1Fk" />
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:id="@+id/textView9"
+        android:layout_width="385dp"
+        android:layout_height="59dp"
+        android:text="Information regarding COVID-19 vaccine near you: "
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.467" />
+
+    <ImageButton
+        android:id="@+id/cdcbutton"
+        android:layout_width="99dp"
+        android:layout_height="65dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.538"
+        app:srcCompat="@drawable/cdc" />
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:id="@+id/textView10"
+        android:layout_width="391dp"
+        android:layout_height="37dp"
+        android:text="Mental Health Resources: "
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="0.157" />
+
+    <ImageButton
+        android:id="@+id/nihbutton"
+        android:layout_width="278dp"
+        android:layout_height="65dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.689"
+        app:srcCompat="@drawable/nimh" />
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:id="@+id/textView11"
+        android:layout_width="384dp"
+        android:layout_height="37dp"
+        android:layout_marginBottom="168dp"
+        android:text="COVID-19 related Statistics : "
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.629"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nihbutton"
+        app:layout_constraintVertical_bias="0.04" />
+
+    <ImageButton
+        android:id="@+id/whobutton"
+        android:layout_width="274dp"
+        android:layout_height="87dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
         app:layout_constraintVertical_bias="0.0"
-        android:background="@drawable/button_bg"/>
+        app:srcCompat="@drawable/who" />
 
-    <Switch
-        android:id="@+id/statusswitch"
-        android:layout_width="348dp"
-        android:layout_height="34dp"
-        android:onClick="ChangeStatus"
-        android:text="Are you Covid Positive?"
-        android:textColor="@android:color/black"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.253"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
 
-    <TextView
-        android:id="@+id/risknotification"
-        android:layout_width="371dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@android:color/black"
-        android:text="."
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusswitch" />
-
-    <Button
-        android:id="@+id/riskread"
-        android:layout_width="168dp"
-        android:layout_height="42dp"
-        android:text="Mark as Read"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.446"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/risknotification"
-        app:layout_constraintVertical_bias="0.067"
-        android:background="@drawable/button_bg"
-       />
-
-    <TextView
-        android:id="@+id/dateview"
-        android:layout_width="378dp"
-        android:layout_height="35dp"
-        android:text=""
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/riskread"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/risknotification"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/covidchart"
-        android:layout_width="410dp"
-        android:layout_height="343dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/riskread"
-        app:layout_constraintVertical_bias="0.306"
-        tools:ignore="MissingClass">
-
-    </com.github.mikephil.charting.charts.LineChart>
 
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:onClick="GotoGroup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.085"
@@ -106,6 +118,7 @@
 
     <ImageButton
         android:id="@+id/imageButton3"
+        android:onClick="GotoHome"
         android:layout_width="72dp"
         android:layout_height="72dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -121,7 +134,7 @@
         android:id="@+id/assesButton"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:onClick="gotoAsses"
+        android:onClick="GotoAsses"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -135,13 +148,13 @@
         android:id="@+id/imageButton"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:onClick="GotoUpload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/assesButton"
         app:layout_constraintTop_toBottomOf="@+id/covidchart"
         app:layout_constraintVertical_bias="1.0"
+        android:onClick="GotoUpload"
         app:srcCompat="@drawable/upload"
         tools:ignore="VectorDrawableCompat" />
 
@@ -159,5 +172,18 @@
         app:srcCompat="@drawable/contents"
         tools:ignore="VectorDrawableCompat" />
 
+    <TextView
+        android:textColor="@android:color/black"
+        android:id="@+id/textView12"
+        android:layout_width="410dp"
+        android:layout_height="37dp"
+        android:text=" Information and resources for COVID-19: "
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/videoview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
