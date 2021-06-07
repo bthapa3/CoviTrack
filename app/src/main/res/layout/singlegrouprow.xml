@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="5dp"
+    android:elevation="5dp"
+    app:cardUseCompatPadding="true"
+    android:background="#ffffff"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="#ffffff">
+
+
+        <TextView
+            android:id="@+id/groupid"
+            android:layout_width="252dp"
+            android:layout_height="37dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="137dp"
+            android:text="GroupName" />
+
+        <Button
+            android:id="@+id/buttonid"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="-108dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/button_bg"
+            android:layout_marginEnd="0dp"
+            android:layout_toEndOf="@+id/groupid"
+            android:text="Delete" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

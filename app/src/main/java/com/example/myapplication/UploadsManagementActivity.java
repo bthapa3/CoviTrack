@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,13 +15,18 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,41 +45,66 @@ import java.io.OutputStream;
 
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
-public class UploadsManagementActivity extends AppCompatActivity implements UserInfoAdapter.OnNoteListener{
+public class UploadsManagementActivity extends ToolbarActivity implements UserInfoAdapter.OnNoteListener {
 
     private FirebaseStorage m_storage;
     private StorageReference m_storageRef;
     private RadioButton Individual,Everyone;
     private RadioGroup RadioGroup;
     private EditText EmailHolder;
-    private ImageView m_exit,m_userpic,m_download;
+    private ImageView m_exit,m_userpic,m_download,m_blankview;
     OutputStream outputStream;
     RecyclerView m_recview;
     UserInfoAdapter m_adapter;
+    String value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+
+        Bundle b = getIntent().getExtras();
+        value = ""; // or other values
+        if(b != null){
+
+            value = b.getString("inventoryitem");
+            System.out.println("value is"+ value);
+            Toast.makeText(UploadsManagementActivity.this, value, Toast.LENGTH_SHORT).show();
+        }
+        else{
+            System.out.println("null");
+        }
+
+
+
+        //toolbar.setTitle("Management");
+
 
         setContentView(R.layout.activity_uploads_management);
         m_exit= (ImageView) findViewById(R.id.exit);
+        m_blankview=(ImageView) findViewById(R.id.backgroundfill);
         m_userpic= (ImageView) findViewById(R.id.userspic);
         m_download=(ImageView) findViewById(R.id.downloadButton);
         m_exit.setVisibility(View.INVISIBLE);
+        m_blankview.setVisibility(View.INVISIBLE);
         m_userpic.setVisibility(View.INVISIBLE);
         m_download.setVisibility(View.INVISIBLE);
 
         m_recview=(RecyclerView) findViewById(R.id.myrecview);
         m_recview.setLayoutManager(new LinearLayoutManager(this));
+        try {
+            FirebaseRecyclerOptions<Users> options =
+                    new FirebaseRecyclerOptions.Builder<Users>()
+                            .setQuery(FirebaseDatabase.getInstance().getReference().child("Users"), Users.class)
+                            .build();
 
-        FirebaseRecyclerOptions<Users> options =
-                new FirebaseRecyclerOptions.Builder<Users>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Users"), Users.class)
-                        .build();
-
-        m_adapter=new UserInfoAdapter(options,this);
-        m_recview.setAdapter(m_adapter);
-
+            m_adapter = new UserInfoAdapter(options, this, this, value);
+            m_recview.setAdapter(m_adapter);
+        }
+        catch (Exception e){
+            System.out.println("error happens here"+e);
+        }
 
         m_download.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,17 +115,28 @@ public class UploadsManagementActivity extends AppCompatActivity implements User
 
     }
 
+
     @Override
     protected void onStart() {
-        super.onStart();
-        m_adapter.startListening();
+        try {
+            super.onStart();
+            m_adapter.startListening();
+        }catch (Exception e){
+            System.out.println("Error inside onstart");
+        }
     }
 
     @Override
     protected void onStop() {
+        try{
         super.onStop();
         m_adapter.stopListening();
+        }
+        catch (Exception e){
+            System.out.println("error inside stop"+e);
+        }
     }
+
 
     public void DownloadImage(){
 
@@ -135,6 +177,14 @@ public class UploadsManagementActivity extends AppCompatActivity implements User
     }
 
 
+    @Override
+    public void onBackPressed()
+    {
+        Intent homeIntent = new Intent(UploadsManagementActivity.this, UploadActivity.class);
+        startActivity(homeIntent);
+        finish();
+    }
+
 
     public void GotoAsses(View view){
         startActivity(new Intent(getApplicationContext(), AssesmentActivity.class));
@@ -163,43 +213,48 @@ public class UploadsManagementActivity extends AppCompatActivity implements User
         m_exit.setVisibility(View.INVISIBLE);
         m_userpic.setVisibility(View.INVISIBLE);
         m_download.setVisibility(View.INVISIBLE);
+        m_blankview.setVisibility(View.INVISIBLE);
     }
 
 
     @Override
-    public void onNoteClick(int position,String ids) {
+    public void onNoteClick(int position,String ids,String inventorytype) {
 
         System.out.println(ids);
 
         if(ids.equals("null")){
             return;
         }
-        m_exit.setVisibility(View.VISIBLE);
         FirebaseStorage m_storage = FirebaseStorage.getInstance();
         StorageReference m_storageRef = m_storage.getReference();
-        StorageReference resultseref = m_storageRef.child("testresult/" +ids);
+        StorageReference resultseref = m_storageRef.child(inventorytype+ "/" +ids);
 
-        final long Imagesize = 2048 * 2048;
-        resultseref.getBytes(Imagesize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+
+
+        resultseref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                // Data for "images/island.jpg" is returns, use this as needed
-                m_userpic.setImageBitmap(bitmap);
+            public void onSuccess(Uri uri) {
+                // Got the download URL for 'users/me/profile.png'
 
+                Glide.with(UploadsManagementActivity.this)
+                        .load(uri)
+                        .placeholder(R.drawable.ic_launcher_background)
+                        .into(m_userpic);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                //  holder.insurance.setImageBitmap(bitmap);
-
+                // Handle any errors
             }
         });
-
+        m_exit.setVisibility(View.VISIBLE);
         m_userpic.setVisibility(View.VISIBLE);
         m_download.setVisibility(View.VISIBLE);
+        m_blankview.setVisibility(View.VISIBLE);
         // System.out.println(Users.get(position).getUser);
        // Intent intent=new Intent(this, MainActivity.class);
         //startActivity(intent);
     }
+
+
 }

@@ -7,61 +7,13 @@
     tools:context=".UploadActivity"
     android:background="@color/white">
 
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:onClick="GotoGroup"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/covidchart"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_action_name"
-        tools:ignore="VectorDrawableCompat" />
-
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:onClick="GotoHome"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageButton2"
-        app:layout_constraintTop_toBottomOf="@+id/covidchart"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/home"
-        tools:ignore="VectorDrawableCompat" />
-
-    <ImageButton
-        android:id="@+id/assesButton"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:onClick="GotoAsses"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageButton3"
-        app:layout_constraintTop_toBottomOf="@+id/covidchart"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/assesment"
-        tools:ignore="VectorDrawableCompat" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/assesButton"
-        app:layout_constraintTop_toBottomOf="@+id/covidchart"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/upload"
-        tools:ignore="VectorDrawableCompat" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
@@ -70,28 +22,27 @@
         android:layout_height="226dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.062"
+        app:layout_constraintVertical_bias="0.136"
         app:srcCompat="@drawable/results"
         tools:ignore="VectorDrawableCompat" />
+
 
     <Button
         android:id="@+id/submitresult"
         android:layout_width="130dp"
         android:layout_height="84dp"
+        android:background="@drawable/button_bg"
         android:text="Upload Covid Results"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.921"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.154"
-        tools:ignore="UnknownId"
-        android:background="@drawable/button_bg"
-       />
-
+        app:layout_constraintVertical_bias="0.216"
+        tools:ignore="UnknownId" />
 
     <ImageView
         android:id="@+id/insuranceview"
@@ -99,57 +50,153 @@
         android:layout_height="226dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.516"
+        app:layout_constraintVertical_bias="0.584"
         app:srcCompat="@drawable/results"
-        tools:ignore="VectorDrawableCompat"
-        />
+        tools:ignore="VectorDrawableCompat" />
 
     <Button
         android:id="@+id/submitinsurance"
         android:layout_width="130dp"
         android:layout_height="84dp"
+        android:background="@drawable/button_bg"
         android:text="Upload Digital Insurance"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.921"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
-        tools:ignore="UnknownId"
-        android:background="@drawable/button_bg"
-       />
+        app:layout_constraintVertical_bias="0.576"
+        tools:ignore="UnknownId" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="273dp"
         android:layout_height="42dp"
-        android:onClick="ManageSubmissions"
+        android:background="@drawable/button_bg"
+        android:onClick="GotoResultsInventory"
         android:text="Covid Results Inventory"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.572"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.754"
-        android:background="@drawable/button_bg"
-   />
+        app:layout_constraintVertical_bias="0.783" />
 
-    <ImageButton
-        android:id="@+id/resources"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:onClick="GotoResources"
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="273dp"
+        android:layout_height="42dp"
+        android:background="@drawable/button_bg"
+        android:onClick="GotoInsuranceInventory"
+        android:text="Digital Insurance Inventory"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.572"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.859" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="0dp"
+        android:layout_height="62dp"
+        android:background="@color/purple_200"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toBottomOf="@+id/covidchart"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/contents"
-        tools:ignore="VectorDrawableCompat" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1">
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/purple_200"
+            android:onClick="GotoGroup"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/covidchart"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/teamz" />
+
+
+        <ImageButton
+            android:id="@+id/assesButton"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/purple_200"
+            android:onClick="GotoAsses"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.081"
+            app:layout_constraintStart_toEndOf="@+id/imageButton3"
+            app:layout_constraintTop_toBottomOf="@+id/covidchart"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/statisticalz"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/purple_200"
+            android:onClick="GotoHome"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.037"
+            app:layout_constraintStart_toEndOf="@+id/imageButton2"
+            app:layout_constraintTop_toBottomOf="@+id/covidchart"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/housez"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/purple_200"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.132"
+            app:layout_constraintStart_toEndOf="@+id/assesButton"
+            app:layout_constraintTop_toBottomOf="@+id/covidchart"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/uploadz"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageButton
+            android:id="@+id/resources"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/purple_200"
+            android:onClick="GotoResources"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.944"
+            app:layout_constraintStart_toEndOf="@+id/imageButton"
+            app:layout_constraintTop_toBottomOf="@+id/covidchart"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/supportz"
+            tools:ignore="VectorDrawableCompat" />
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

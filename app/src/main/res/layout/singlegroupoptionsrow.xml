@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="5dp"
+    android:elevation="5dp"
+    app:cardUseCompatPadding="true"
+    android:background="#ffffff"
+    >
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="411dp"
+        android:layout_height="61dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/groupid"
+            android:layout_width="156dp"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:text="GroupName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.004"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.428" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:text="Add to Group"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/group1button"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toEndOf="@+id/groupid"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.428">
+
+        </TextView>
+
+        <Button
+            android:id="@+id/group1button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/button_bg"
+            android:text="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.359"
+            app:layout_constraintStart_toEndOf="@+id/groupid"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.642" />
+
+        <Button
+            android:id="@+id/group2button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/button_bg"
+            android:text="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/group1button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.714" />
+
+        <Button
+            android:id="@+id/group3button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/button_bg"
+            android:text="3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/group2button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.714" />
+
+        <Button
+            android:id="@+id/group4button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/button_bg"
+            android:text="4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.701"
+            app:layout_constraintStart_toEndOf="@+id/group2button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.714" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

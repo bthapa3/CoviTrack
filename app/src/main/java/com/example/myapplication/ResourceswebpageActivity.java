@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +10,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-public class ResourceswebpageActivity extends AppCompatActivity {
+public class ResourceswebpageActivity extends ToolbarActivity {
 TextView myview;
 WebView m_resourcepage;
     @Override
@@ -17,6 +18,9 @@ WebView m_resourcepage;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resourceswebpage);
 
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("Resources");
 
         Bundle b = getIntent().getExtras();
         String value = ""; // or other values
@@ -43,7 +47,6 @@ WebView m_resourcepage;
 
     @Override
     public void onBackPressed()
-
     {
         Intent homeIntent = new Intent(ResourceswebpageActivity.this, ResourcesActivity.class);
         startActivity(homeIntent);

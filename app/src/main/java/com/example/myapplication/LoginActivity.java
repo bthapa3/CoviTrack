@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
      EditText mEmail,mPassword;
      Button mLoginBtn;
-     TextView mRegister;
+     TextView mRegister, m_ForgotPassword;
      ProgressBar progressBar;
      FirebaseAuth fAuth;
     @Override
@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progressBar2);
         mLoginBtn=findViewById(R.id.login);
         mRegister=findViewById(R.id.register);
-
+        m_ForgotPassword=findViewById(R.id.resetpassword);
         fAuth=FirebaseAuth.getInstance();
         progressBar.setVisibility(View.INVISIBLE);
 
@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(LoginActivity.this, "logged in", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            finish();
                         }
                         else{
                             Toast.makeText(LoginActivity.this, "Incorrect credentials", Toast.LENGTH_SHORT).show();
@@ -88,6 +89,15 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
 
+        });
+
+        //if the user forgot the password and clicks the forgot password button
+        m_ForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ForgotpasswordActivity.class));
+                finish();
+            }
         });
 
 

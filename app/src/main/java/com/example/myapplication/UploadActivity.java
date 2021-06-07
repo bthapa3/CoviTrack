@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -29,7 +31,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.IOException;
 
-public class UploadActivity extends AppCompatActivity {
+public class UploadActivity extends ToolbarActivity {
 
     private FirebaseStorage m_storage;
     private StorageReference m_storageRef;
@@ -42,6 +44,9 @@ public class UploadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("Uploads and Inventory");
         m_submitresult=findViewById(R.id.submitresult);
         m_resultsview=findViewById(R.id.resultsview);
         m_submitinsurance=findViewById(R.id.submitinsurance);
@@ -54,38 +59,52 @@ public class UploadActivity extends AppCompatActivity {
         StorageReference resultseref = m_storageRef.child("testresult/" +picture_id);
         StorageReference insuranceref = m_storageRef.child("insurance/" +picture_id);
 
-        final long ImageSize = 2048 * 2048;
-        resultseref.getBytes(ImageSize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                m_resultsview.setImageBitmap(bitmap);
-                m_submitresult.setText("UPDATE COVID RESULTS");
-                // Data for "images/island.jpg" is returns, use this as needed
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // toast error status probably file size too big
-                // Handle any errors
-            }
-        });
 
-        insuranceref.getBytes(ImageSize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                m_insuranceview.setImageBitmap(bitmap);
-                m_submitinsurance.setText("UPDATE DIGITAL INSURANCE");
-                // Data for "images/island.jpg" is returns, use this as needed
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // toast error status probably file size too big
-                // Handle any errors
-            }
-        });
+        try{
+            resultseref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    // Got the download URL for 'users/me/profile.png'
+                    m_submitresult.setText("UPDATE COVID RESULTS");
+                    Glide.with(UploadActivity.this)
+                            .load(uri)
+                            .centerCrop()
+                            .placeholder(R.drawable.ic_launcher_background)
+                            .into(m_resultsview);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
+        }
+        catch (Exception e){
+            System.out.println("Results does not exist"+ e);
+        }
+
+        try{
+            insuranceref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    // Got the download URL for 'users/me/profile.png'
+                    m_submitinsurance.setText("UPDATE DIGITAL INSURANCE");
+                    Glide.with(UploadActivity.this)
+                            .load(uri)
+                            .centerCrop()
+                            .placeholder(R.drawable.ic_launcher_background)
+                            .into(m_insuranceview);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
+        }
+        catch (Exception e){
+            System.out.println("Insurance pic doesnot exist"+ e);
+        }
 
 
 
@@ -106,7 +125,13 @@ public class UploadActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed()
+    {
+        Intent homeIntent = new Intent(UploadActivity.this, MainActivity.class);
+        startActivity(homeIntent);
+        finish();
+    }
 
     private void GetResults(){
         Intent intent=new Intent();
@@ -154,6 +179,9 @@ public class UploadActivity extends AppCompatActivity {
                         Snackbar.make(findViewById(android.R.id.content),"Image uploaded",Snackbar.LENGTH_LONG).show();
                         if(type.equals("testresult/")){  m_submitresult.setText("UPDATE COVID RESULTS");}
                         else{m_submitinsurance.setText("UPDATE DIGITAL INSURANCE");}
+                        //reload
+                        finish();
+                        startActivity(getIntent());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -199,9 +227,22 @@ public class UploadActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), ResourcesActivity.class));
         finish();
     }
-    public void ManageSubmissions(View view){
-        startActivity(new Intent(getApplicationContext(), UploadsManagementActivity.class));
+    public void GotoResultsInventory(View view){Intent intent = new Intent(UploadActivity.this, UploadsManagementActivity.class);
+        Bundle b = new Bundle();
+        b.putString("inventoryitem", "testresult"); //Your id
+        intent.putExtras(b); //Put your id to your next Intent
+        startActivity(intent);
         finish();
+
+    }
+
+    public void GotoInsuranceInventory(View view){Intent intent = new Intent(UploadActivity.this, UploadsManagementActivity.class);
+        Bundle b = new Bundle();
+        b.putString("inventoryitem", "insurance"); //Your id
+        intent.putExtras(b); //Put your id to your next Intent
+        startActivity(intent);
+        finish();
+
     }
 
 

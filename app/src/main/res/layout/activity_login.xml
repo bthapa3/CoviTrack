@@ -58,24 +58,37 @@
         android:textColor="@color/black"
         app:backgroundTint="@color/black"
         />
+
     <Button
         android:id="@+id/login"
-        android:layout_width="match_parent"
+        android:layout_width="345dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="20dp"
-        android:text="Login"
         android:background="@drawable/button_bg"
+        android:text="Login"
+
 
         />
+
+
     <TextView
         android:id="@+id/register"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No Account Yet? Create an Account"
+        android:layout_height="30dp"
+        android:layout_margin="0dp"
+        android:text="Create an Account"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        />
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/resetpassword"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Forgot Password?Change Password"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
 
     <ProgressBar
         android:id="@+id/progressBar2"

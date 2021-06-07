@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import android.widget.ImageButton;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
-public class ResourcesActivity extends AppCompatActivity {
+public class ResourcesActivity extends ToolbarActivity {
     private YouTubePlayerView youTubePlayerView;
     ImageButton m_cdc, m_nih, m_who;
     @Override
@@ -27,6 +28,10 @@ public class ResourcesActivity extends AppCompatActivity {
         m_cdc=findViewById(R.id.cdcbutton);
         m_nih=findViewById(R.id.nihbutton);
         m_who=findViewById(R.id.whobutton);
+
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("Resources");
 
         m_cdc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +75,14 @@ public class ResourcesActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent homeIntent = new Intent(ResourcesActivity.this, MainActivity.class);
+        startActivity(homeIntent);
+        finish();
     }
 
     public void GotoAsses(View view){

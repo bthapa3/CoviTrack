@@ -7,84 +7,123 @@
     tools:context=".ResourceswebpageActivity"
     android:background="@color/white">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="695dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginBottom="62dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="0dp"
+        android:layout_height="62dp"
+        android:background="@color/purple_200"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/covidchart"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_action_name"
-        tools:ignore="VectorDrawableCompat" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1">
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:onClick="GotoHome"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageButton2"
-        app:layout_constraintTop_toBottomOf="@+id/covidchart"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/home"
-        tools:ignore="VectorDrawableCompat" />
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/purple_200"
+            android:onClick="GotoGroup"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/covidchart"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/teamz" />
 
-    <ImageButton
-        android:id="@+id/assesButton"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:onClick="GotoAsses"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageButton3"
-        app:layout_constraintTop_toBottomOf="@+id/covidchart"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/assesment"
-        tools:ignore="VectorDrawableCompat" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/assesButton"
-        app:layout_constraintTop_toBottomOf="@+id/covidchart"
-        app:layout_constraintVertical_bias="1.0"
-        android:onClick="GotoUpload"
-        app:srcCompat="@drawable/upload"
-        tools:ignore="VectorDrawableCompat" />
+        <ImageButton
+            android:id="@+id/assesButton"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/purple_200"
+            android:onClick="GotoAsses"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.081"
+            app:layout_constraintStart_toEndOf="@+id/imageButton3"
+            app:layout_constraintTop_toBottomOf="@+id/covidchart"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/statisticalz"
+            tools:ignore="VectorDrawableCompat" />
 
-    <ImageButton
-        android:id="@+id/resources"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:onClick="GotoResources"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toBottomOf="@+id/covidchart"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/contents"
-        tools:ignore="VectorDrawableCompat" />
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/purple_200"
+            android:onClick="GotoHome"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.037"
+            app:layout_constraintStart_toEndOf="@+id/imageButton2"
+            app:layout_constraintTop_toBottomOf="@+id/covidchart"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/housez"
+            tools:ignore="VectorDrawableCompat" />
 
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/purple_200"
+            android:onClick="GotoUpload"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.132"
+            app:layout_constraintStart_toEndOf="@+id/assesButton"
+            app:layout_constraintTop_toBottomOf="@+id/covidchart"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/uploadz"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageButton
+            android:id="@+id/resources"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/purple_200"
+            android:onClick="GotoResources"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.944"
+            app:layout_constraintStart_toEndOf="@+id/imageButton"
+            app:layout_constraintTop_toBottomOf="@+id/covidchart"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/supportz"
+            tools:ignore="VectorDrawableCompat" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
