@@ -31,35 +31,32 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Date;
 
 
- /**
-  * GroupsActivity Class manages all the operations related with user-groups
-  * Admin can search and create groups if it does not already exist
+ /**/
+ /*
+  *  CLASS DESCRIPTION:
+  *     Allows the user to edit or select the groups they belong as per their physical
+  *     location on work environment.
   *
-  * Admin can also delete and join groups
-  * Other users can search and join  groups but cannot create or delete
+  *  PURPOSE:
+  *     GroupsActivity Class manages all the operations related with user-groups
+  *     Users can manually or automatically join the groups using the text fields.
+  *     User are displayed groups they belong to.
+  *     Default values are null for all 4 groups initially.
+  *     User can have up to 4 groups and they can change them.
   *
-  * User are displayed groups they belong to.
-  * Default values are null for all 4 groups initially.
+  *  AUTHOR:
+  *      Bishal Thapa
   *
-  * User can have up to 4 groups and they can change them.
-  * Edit options are available for user to change the group names
-  *
-  * home button, assessment button and other buttons available at the bottom of
-  * groups activity each have a function that redirects user to the specific activities.
-  *
- **/
+  *  DATE
+  *       4/27/2021
+  */
+ /**/
 
 public class GroupsActivity extends  ToolbarActivity implements View.OnClickListener {
 
     // Reference for the Editable text views that stores the names of the respective groups
     private EditText m_group1, m_group2, m_group3, m_group4;
     private TextView m_button1,m_button2,m_button3,m_button4, m_managegroups;
-    // m_display status stores the Text view that displays the status of the group searched(i.e: group exists or group doesnot exist)
-    // m_showgroupname stores the Text view that displays the name of the group that user searched.
-    private TextView m_displaystatus, m_showgroupname;
-
-    //m_group name holds the name of the group that user searches.
-    private EditText m_groupname;
 
     // m_currentuserID represents the user ID value stored in the database. It helps to uniquely identify a person.
     // As the user is currently logged in we can get it using firebase authorization.
@@ -76,9 +73,35 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
 
      private Toast m_toast;
 
+     /**/
+     /*
+      *   NAME
+      *      protected void onCreate
+      *
+      *   SYNOPSIS
+      *      protected void onCreate(Bundle a_savedInstanceState)
+      *      Bundle a_savedInstanceState---->reference to a Bundle object
+      *
+      *   DESCRIPTION
+      *     The onCreate function stores the reference to UI buttons,toolbars,Image_button and
+      *     sets up the on click listener's as required.It also initializes the recycler view
+      *     in order to show users group list.  Manage_groups button's visibility is turned on or
+      *     off depending the user's type from the onCreate method itself.
+      *
+      *   RETURNS
+      *       Nothing
+      *
+      *   AUTHOR
+      *       Bishal Thapa
+      *
+      *   DATE
+      *       4/27/2021
+      *
+      */
+     /**/
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle a_savedInstanceState) {
+        super.onCreate(a_savedInstanceState);
         setContentView(R.layout.activity_groups);
 
         Toolbar toolbar=findViewById(R.id.toolbar);
@@ -102,20 +125,20 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
         m_group4 = findViewById(R.id.group4view);
 
         // //Image buttons for navigating through the 5 main activities.
-        ImageButton a_assessbutton=findViewById(R.id.assesButton);
-        ImageButton a_homebutton=findViewById(R.id.homeButton);
-        ImageButton a_resourcebutton=findViewById(R.id.resourcesButton);
-        ImageButton a_uploadbutton=findViewById(R.id.uploadButton);
+        ImageButton assessbutton=findViewById(R.id.assessButton);
+        ImageButton homebutton=findViewById(R.id.homeButton);
+        ImageButton resourcebutton=findViewById(R.id.resourcesButton);
+        ImageButton uploadbutton=findViewById(R.id.uploadButton);
 
         //on click listener that helps to determine the next activity that the user wants
         // to navigate to.
-        a_assessbutton.setOnClickListener(this);
-        a_homebutton.setOnClickListener(this);
-        a_resourcebutton.setOnClickListener(this);
-        a_uploadbutton.setOnClickListener(this);
+        assessbutton.setOnClickListener(this);
+        homebutton.setOnClickListener(this);
+        resourcebutton.setOnClickListener(this);
+        uploadbutton.setOnClickListener(this);
 
         RecyclerView myrecview=findViewById(R.id.myrecview);
-
+        //setting up recycler view by feeding Usergroups objects from FirebaseDatabase
         try {
             FirebaseRecyclerOptions<UserGroups> options =
                     new FirebaseRecyclerOptions.Builder<UserGroups>()
@@ -128,7 +151,7 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
             myrecview.setAdapter(m_myadapter);
         }catch (Exception e)
         {
-            System.out.println("error"+e);
+            System.out.println("Error encountered: "+e);
         }
 
         //populating groups names for all the groups on create.
@@ -141,10 +164,10 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
                 //  box with the user groups name using the users object stored in database.
                 Users user = Datasnapshot.child(m_currentuserID).getValue(Users.class);
 
-                m_group1.setText(user.group1);
-                m_group2.setText(user.group2);
-                m_group3.setText(user.group3);
-                m_group4.setText(user.group4);
+                m_group1.setText(user.getGroup1());
+                m_group2.setText(user.getGroup2());
+                m_group3.setText(user.getGroup3());
+                m_group4.setText(user.getGroup4());
             }
 
             @Override
@@ -163,7 +186,7 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
             public void onClick(View v) {
                 if(m_button1.getText().equals("Edit")){
 
-                    //got help for this line from https://stackoverflow.com/questions/6217378/place-cursor-at-the-end-of-text-in-edittext
+                    //Help taken from:  https://stackoverflow.com/questions/6217378/place-cursor-at-the-end-of-text-in-edittext
                     //this helps to put the keyboard cursor at the last letter instead of the first letter of a word.
                     m_group1.setSelection(m_group1.getText().length());
                     //ChangeState shows the save button and pops up the keyboard automatically for the user to type in.
@@ -225,6 +248,7 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
             }
         });
 
+        //gets the user class object from the database to check if the user is "admin" or "member" .
         m_userreference.child(m_currentuserID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -235,14 +259,18 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
                 }
                 else {
                     if(task.getResult().getValue().toString().equals("admin")){
+                        //if the user is admin button is visible
+                        //visibility is set to invisible by default in xml layout.
                         m_managegroups.setVisibility(View.VISIBLE);
                     }
                     else{
-                        //no privelage to edit groups
+                        //no privilege to edit groups
                     }
                 }
             }
         });
+
+        //Takes the admin users to another activity to modify, add or remove the existing groups.
         m_managegroups.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -260,12 +288,12 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
   *     public void ChangeState
   *
   *   SYNOPSIS
-  *     public void ChangeState(TextView button, EditText groupholder,InputMethodManager keyboardmanager)
-  *             Textview button---> The button which causes the on-click event to trigger while the user enters the value
+  *     public void ChangeState(TextView a_button, EditText a_groupholder,InputMethodManager a_keyboardmanager)
+  *             Textview a_button---> The button which causes the on-click event to trigger while the user enters the value
   *                                 and saves it.
-  *             InputMethodManager keyboardmanager--> Keyboard manager object which allows the soft keyboard to be displayed
+  *             InputMethodManager a_keyboardmanager--> Keyboard manager object which allows the soft keyboard to be displayed
   *                                and be hidden based on the user input expectation.
-  *             EditText groupholder--> the name of the group that user has entered on EditText field manually
+  *             EditText a_groupholder--> the name of the group that user has entered on EditText field manually
   *
   *
   *   DESCRIPTION
@@ -283,16 +311,16 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
   *
   */
  /**/
-    public void ChangeState(TextView button, EditText groupholder,InputMethodManager keyboardmanager){
+    public void ChangeState(TextView a_button, EditText a_groupholder,InputMethodManager a_keyboardmanager){
         //Text changed from Edit to Save
-        button.setText("Save");
+        a_button.setText("Save");
         //Uneditable EditText changed to Editable
-        groupholder.setFocusableInTouchMode(true);
-        groupholder.setFocusable(true);
+        a_groupholder.setFocusableInTouchMode(true);
+        a_groupholder.setFocusable(true);
         //Cursor is moved to the EditText automatically
-        groupholder.requestFocus();
+        a_groupholder.requestFocus();
         //Keyboard pops up automatically to help user input text faster.
-        keyboardmanager.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+        a_keyboardmanager.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
     }
 
 
@@ -302,12 +330,12 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
   *     public void SaveState
   *
   *   SYNOPSIS
-  *     public void SaveState(EditText groupholder, String groupid,TextView button,InputMethodManager keyboardmanager)
-  *         EditText groupholder--> the name of the group that user has entered on EditText field manually
-  *         String groupid---> Groupnumber between 1-4 where the groupname will be stored.
-  *         Textview button--->The button which causes the on-click event to trigger while the user enters the value
+  *     public void SaveState(EditText a_groupholder, String a_groupid,TextView a_button,InputMethodManager a_keyboardmanager)
+  *         EditText a_groupholder--> the name of the group that user has entered on EditText field manually
+  *         String a_groupid---> Groupnumber between 1-4 where the groupname will be stored.
+  *         Textview a_button--->The button which causes the on-click event to trigger while the user enters the value
   *                             and saves it.
-  *         InputMethodManager keyboardmanager--> Keyboard manager object which allows the soft keyboard to be displayed
+  *         InputMethodManager a_keyboardmanager--> Keyboard manager object which allows the soft keyboard to be displayed
   *                             and be hidden based on the user input expectation.
   *
   *   DESCRIPTION
@@ -327,9 +355,9 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
   *
   */
  /**/
-    public void SaveState(EditText groupholder, String groupid,TextView button,InputMethodManager keyboardmanager){
+    public void SaveState(EditText a_groupholder, String a_groupid,TextView a_button,InputMethodManager a_keyboardmanager){
 
-        m_groupreference.child(groupholder.getText().toString()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        m_groupreference.child(a_groupholder.getText().toString()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -341,7 +369,7 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
                     if(task.getResult().getValue()!=(null)){
                         //If the value is not null that means group is present in the database.
                         //saving the user group on the database for the user.
-                        CheckandsetGroup(groupid,groupholder.getText().toString());
+                        CheckandsetGroup(a_groupid,a_groupholder.getText().toString());
                        // m_userreference.child(m_currentuserID).child(groupid).setValue(groupholder.getText().toString());
                     }
                     else{
@@ -350,11 +378,11 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
                     }
                 }
                 //Changing status of the button to edit and making the placeholder uneditable before user presses edit button.
-                button.setText("Edit");
-                groupholder.setFocusableInTouchMode(false);
-                groupholder.setFocusable(false);
+                a_button.setText("Edit");
+                a_groupholder.setFocusableInTouchMode(false);
+                a_groupholder.setFocusable(false);
                 //hiding the keyboard after the group is saved
-                keyboardmanager.hideSoftInputFromWindow(groupholder.getWindowToken(), 0);
+                a_keyboardmanager.hideSoftInputFromWindow(a_groupholder.getWindowToken(), 0);
             }
         });
 
@@ -368,10 +396,10 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
   *     public void CheckandsetGroup
   *
   *   SYNOPSIS
-  *     public void CheckandsetGroup(String groupid,String groupname)
-  *         String groupid--->the group in which the selected groupname is to be stored.
+  *     public void CheckandsetGroup(String a_groupid,String a_groupname)
+  *         String a_groupid--->the group in which the selected groupname is to be stored.
   *                     can range between group1 to group4
-  *         String groupname--->the group which the user has chosen to be placed on.
+  *         String a_groupname--->the group which the user has chosen to be placed on.
   *
   *   DESCRIPTION
   *     This function ensures that the groupname that the user chooses is not already present in
@@ -396,15 +424,15 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
   */
  /**/
 
-     public void CheckandsetGroup(String groupid,String groupname){
+     public void CheckandsetGroup(String a_groupid,String a_groupname){
          m_userreference.child(m_currentuserID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
              @Override
              public void onComplete(@NonNull Task<DataSnapshot> task) {
-                 Users a_currentuser=task.getResult().getValue(Users.class);
-                 if(a_currentuser.getGroup1().equals(groupname) || a_currentuser.getGroup2().equals(groupname) ||
-                         a_currentuser.getGroup3().equals(groupname) || a_currentuser.getGroup4().equals(groupname))
+                 Users currentuser=task.getResult().getValue(Users.class);
+                 if(currentuser.getGroup1().equals(a_groupname) || currentuser.getGroup2().equals(a_groupname) ||
+                         currentuser.getGroup3().equals(a_groupname) || currentuser.getGroup4().equals(a_groupname))
                  {
-                     //https://stackoverflow.com/questions/6925156/how-to-avoid-a-toast-if-theres-one-toast-already-being-shown
+                     // Help taken from: https://stackoverflow.com/questions/6925156/how-to-avoid-a-toast-if-theres-one-toast-already-being-shown
                      if(m_toast!=null){
                          m_toast.cancel();
                      }
@@ -418,7 +446,7 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
                  }
                  else{
                      Toast.makeText(GroupsActivity.this,  "Group Updated " , Toast.LENGTH_SHORT).show();
-                     m_userreference.child(m_currentuserID).child(groupid).setValue(groupname);
+                     m_userreference.child(m_currentuserID).child(a_groupid).setValue(a_groupname);
                  }
              }
          });
@@ -456,7 +484,7 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
              super.onStart();
              m_myadapter.startListening();
          }catch (Exception e){
-             System.out.println("Error inside onstart");
+             System.out.println("Error encountered"+ e);
          }
      }
  /**/
@@ -491,7 +519,7 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
              m_myadapter.stopListening();
          }
          catch (Exception e){
-             System.out.println("error inside stop"+e);
+             System.out.println("Error encountered"+e);
          }
      }
 
@@ -530,37 +558,37 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
      }
 
 
-     /**/
-     /*
-      *   NAME
-      *      public void onClick
-      *
-      *   SYNOPSIS
-      *      public void onClick(View v)
-      *      view   --> view object passes the reference to the Image button which triggered the
-      *                  on-click method.
-      *
-      *   DESCRIPTION
-      *     This function allows the user to navigate through four different activities of the application.
-      *      It takes View v as an input parameter and captures the ID of the button pressed to
-      *      start the new activity.
-      *
-      *   RETURNS
-      *       Nothing
-      *
-      *   AUTHOR
-      *       Bishal Thapa
-      *
-      *   DATE
-      *       4/27/2021
-      *
-      */
-     /**/
+ /**/
+ /*
+  *   NAME
+  *      public void onClick
+  *
+  *   SYNOPSIS
+  *      public void onClick(View a_view)
+  *      a_view   --> view object passes the reference to the Image button which triggered the
+  *                  on-click method.
+  *
+  *   DESCRIPTION
+  *     This function allows the user to navigate through four different activities of the application.
+  *      It takes View v as an input parameter and captures the ID of the button pressed to
+  *      start the new activity.
+  *
+  *   RETURNS
+  *       Nothing
+  *
+  *   AUTHOR
+  *       Bishal Thapa
+  *
+  *   DATE
+  *       4/27/2021
+  *
+  */
+ /**/
 
      @Override
-     public void onClick(View v) {
+     public void onClick(View a_view) {
 
-         switch(v.getId()){
+         switch(a_view.getId()){
 
              case R.id.assessButton: /** Start a new Activity MyCards.java */
                  startActivity(new Intent(getApplicationContext(), GroupsActivity.class));

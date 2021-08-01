@@ -68,8 +68,10 @@ import static androidx.core.app.ActivityCompat.requestPermissions;
 public class BackgroundLocationTracker extends BroadcastReceiver implements LocationListener {
 
     public static final int THIRTYMINUTES_TO_MILLISECONDS = 1800000;
+    public static final int MIN_DISTANCE_METER = 6;
+    //approx count of 30 minutes periods employees are expected to stay at work placce. ie 2*7 days*12 hours*2 per hour
+    public static final int THIRTY_MINUTES_IN_TWO_WEEKS = 336;
     private LocationManager m_locationManager;
-
 
 /**/
 /*
@@ -77,9 +79,9 @@ public class BackgroundLocationTracker extends BroadcastReceiver implements Loca
  *      public void onReceive
  *
  *  SYNOPSIS
- *      public void onReceive (Context context, Intent intent)
- *      context---->context for the OnReceive method from BroadcastReceiver.
- *      intent---->intent received from the Broadcast receiver
+ *      public void onReceive (Context a_context, Intent a_intent)
+ *      a_context---->context for the OnReceive method from BroadcastReceiver.
+ *      a_intent---->intent received from the Broadcast receiver
  *
  *  DESCRIPTION
  *      This method checks the user permission and Build version in order to successfully get the
@@ -95,34 +97,33 @@ public class BackgroundLocationTracker extends BroadcastReceiver implements Loca
  *   DATE
  *       4/27/2021
  *
+ *   Help taken from - https://stackoverflow.com/questions/5947775/android-locationmanager-requestlocationupdates
  */
 /**/
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
-    public void onReceive (Context context, Intent intent){
+    public void onReceive (Context a_context, Intent a_intent){
 
-        //Google's API for location services
-        System.out.println("this ywans");
         // With out checking Build version checkSelfPermission would crash because it does not exist in some older sdk versions.
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
 
-            if (context.getApplicationContext().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
+            if (a_context.getApplicationContext().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
 
                 //getting the current location updates before updating on the database.
-                m_locationManager= (LocationManager) context.getApplicationContext().getSystemService(LOCATION_SERVICE);
+                m_locationManager= (LocationManager) a_context.getApplicationContext().getSystemService(LOCATION_SERVICE);
 
                 //Using GPS provided location instead of network location as it has more coverage and reliability.
                 //Minimum distance before updating location is set to 6 meters as we do not need updates if the
                 //value has not increased by more than 6 meters.
-                m_locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,THIRTYMINUTES_TO_MILLISECONDS,6,BackgroundLocationTracker.this);
+                m_locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,THIRTYMINUTES_TO_MILLISECONDS, MIN_DISTANCE_METER,BackgroundLocationTracker.this);
             }
             else{
                 //Turns out we cannot ask permission from a background process so just asking the user to turn on the location permission by going to the setting.
-                Toast.makeText(context, "Please go to settings and allow location permissions.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(a_context, "Please go to settings and allow location permissions.", Toast.LENGTH_SHORT).show();
             }
         }
         else{
-            Toast.makeText(context, "Problem tracking the location data!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(a_context, "Problem tracking the location data!!!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -141,7 +142,9 @@ public class BackgroundLocationTracker extends BroadcastReceiver implements Loca
      *      stores it on the database.If an instance of document with geo coordinates is not present
      *      on the database, a new map Object is created and geo-coordinate is pushed. If the array list is
      *      already present in the database than co-ordinate is pushed using FieldValue.arrayUnion method which
-     *      adds the value at the end of the database.
+     *      adds the value at the end of the database. It also deletes the old database in order to save the
+     *      space on the database. It does that by checking the number of points stored and replacing if the
+     *      limit is over.
      *
      *   RETURNS
      *       Nothing
@@ -155,19 +158,18 @@ public class BackgroundLocationTracker extends BroadcastReceiver implements Loca
      */
     /**/
     @Override
-    public void onLocationChanged(@NonNull Location location) {
+    public void onLocationChanged(@NonNull Location a_location) {
 
         //user_id for reference during database access.
-        String r_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //reference for the firebase database that helps to connect to the database.
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // using location manager to get latitude and longitude for the user current address.
-        GeoPoint geolocation=new GeoPoint(location.getLatitude(),location.getLongitude());
-        System.out.println("On Location changed runs" + SystemClock.elapsedRealtime());
+        GeoPoint geolocation=new GeoPoint(a_location.getLatitude(),a_location.getLongitude());
 
-        DocumentReference docRef = db.collection("userlocation").document(r_id);
+        DocumentReference docRef = db.collection("userlocation").document(userid);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -176,7 +178,28 @@ public class BackgroundLocationTracker extends BroadcastReceiver implements Loca
                     if (document.exists()) {
                         // Atomically add a new location to the "locations" array field.
                         //if userlocation collection is already present location data will be appended to the location array.
-                        db.collection("userlocation").document(r_id).update("locations", FieldValue.arrayUnion(geolocation));
+
+                        List<GeoPoint> Location=new ArrayList<GeoPoint>();
+                        Location=(List)document.getData().get("locations");
+
+                        //Checking if the geopoints saved are older than 2 weeks.
+                        //No more than 336 data points are needed to be saved in database
+                        // we can delete the old points after that.
+                        if(Location.size()> THIRTY_MINUTES_IN_TWO_WEEKS){
+
+                            //oldest point we stored in database
+                            GeoPoint point_to_delete=Location.get(0);
+
+                            //removing oldest point before storing new point
+                            db.collection("userlocation").document(userid).update("locations", FieldValue.arrayRemove(point_to_delete));
+                            //adding new value to the database.
+                            db.collection("userlocation").document(userid).update("locations", FieldValue.arrayUnion(geolocation));
+
+                        }
+                        else{
+                            //since there are not enough points we can store without deleting anything.
+                            db.collection("userlocation").document(userid).update("locations", FieldValue.arrayUnion(geolocation));
+                        }
 
                     }
                     else {
@@ -195,7 +218,7 @@ public class BackgroundLocationTracker extends BroadcastReceiver implements Loca
 
                         // creating a new document with value r_id  if document is not present.
                         // adds the data to the userlocation collection
-                         db.collection("userlocation").document(r_id)
+                         db.collection("userlocation").document(userid)
                                 .set(data);
                     }
                 }

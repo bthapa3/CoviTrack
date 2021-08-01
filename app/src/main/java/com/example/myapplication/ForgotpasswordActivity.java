@@ -36,14 +36,40 @@ import com.google.firebase.auth.FirebaseAuth;
 /**/
 public class ForgotpasswordActivity extends AppCompatActivity {
 
-    TextView m_login;
-    Button m_reset;
-    EditText m_email;
-    ProgressBar m_progressbar;
-    FirebaseAuth m_fauth;
+    private TextView m_login;
+    private Button m_reset;
+    private EditText m_email;
+    private ProgressBar m_progressbar;
+    private FirebaseAuth m_fauth;
+
+    /**/
+    /*
+     *   NAME
+     *      protected void onCreate
+     *
+     *   SYNOPSIS
+     *      protected void onCreate(Bundle a_savedInstanceState)
+     *      Bundle a_savedInstanceState---->reference to a Bundle object
+     *
+     *   DESCRIPTION
+     *     The onCreate function stores the reference to UI buttons,progressbar and
+     *      sets up the on click listener's as required.It also sets up the firebase
+     *      authorization instance to allow users to reset password.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle a_savedInstanceState) {
+        super.onCreate(a_savedInstanceState);
         setContentView(R.layout.activity_forgotpassword);
 
         //Setting up the id's of the xml buttons with respective variables.
@@ -100,6 +126,8 @@ public class ForgotpasswordActivity extends AppCompatActivity {
      *
      *   DATE
      *       4/27/2021
+     *
+     *   Help taken from: https://www.youtube.com/watch?v=UMNeeMSUZl0
      *
      */
     /**/

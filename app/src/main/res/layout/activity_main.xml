@@ -106,14 +106,13 @@
         app:layout_constraintVertical_bias="1">
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/groupButton"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_marginStart="22dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
             android:background="@color/purple_200"
-            android:onClick="GotoGroup"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -124,13 +123,12 @@
 
 
         <ImageButton
-            android:id="@+id/assesButton"
+            android:id="@+id/assessButton"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
             android:background="@color/purple_200"
-            android:onClick="GotoAsses"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.081"
@@ -157,13 +155,12 @@
             tools:ignore="VectorDrawableCompat" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/uploadButton"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
             android:background="@color/purple_200"
-            android:onClick="GotoUpload"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.132"
@@ -174,12 +171,11 @@
             tools:ignore="VectorDrawableCompat" />
 
         <ImageButton
-            android:id="@+id/resources"
+            android:id="@+id/resourcesButton"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:background="@color/purple_200"
-            android:onClick="GotoResources"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.944"

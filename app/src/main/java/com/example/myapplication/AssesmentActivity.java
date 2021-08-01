@@ -36,18 +36,44 @@ import android.widget.ImageButton;
 /**/
 public class AssesmentActivity extends ToolbarActivity implements  View.OnClickListener{
 
-
+    //Webview helps to store the Assessment webpage loaded from external website.
     private WebView m_assespage;
+
+    /**/
+    /*
+     *   NAME
+     *      protected void onCreate
+     *
+     *   SYNOPSIS
+     *      protected void onCreate(Bundle a_savedInstanceState)
+     *      Bundle a_savedInstanceState---->reference to a Bundle object
+     *
+     *   DESCRIPTION
+     *     The onCreate function stores the reference to UI buttons,toolbars,WebView and
+     *      sets up the on click listener's as required.It also loads the WebView with
+     *      appropriate html page stored inside asset folder.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle a_savedInstanceState) {
+        super.onCreate(a_savedInstanceState);
         setContentView(R.layout.activity_assesment);
 
         //Image buttons for navigating through the 5 main activities.
-        ImageButton a_groupbutton=findViewById(R.id.groupButton);
-        ImageButton a_homebutton=findViewById(R.id.homeButton);
-        ImageButton a_resourcebutton=findViewById(R.id.resourcesButton);
-        ImageButton a_uploadbutton=findViewById(R.id.uploadButton);
+        ImageButton groupbutton=findViewById(R.id.groupButton);
+        ImageButton homebutton=findViewById(R.id.homeButton);
+        ImageButton resourcebutton=findViewById(R.id.resourcesButton);
+        ImageButton uploadbutton=findViewById(R.id.uploadButton);
 
         //Toolbar setup by extending toolbar activity
         Toolbar toolbar=findViewById(R.id.toolbar);
@@ -62,10 +88,10 @@ public class AssesmentActivity extends ToolbarActivity implements  View.OnClickL
         m_assespage.loadUrl("file:///android_asset/asses.html");
 
         //on-click listener for each button to navigate to other pages.
-        a_groupbutton.setOnClickListener(this);
-        a_homebutton.setOnClickListener(this);
-        a_resourcebutton.setOnClickListener(this);
-        a_uploadbutton.setOnClickListener(this);
+        groupbutton.setOnClickListener(this);
+        homebutton.setOnClickListener(this);
+        resourcebutton.setOnClickListener(this);
+        uploadbutton.setOnClickListener(this);
     }
 
 /**/
@@ -131,8 +157,8 @@ public class AssesmentActivity extends ToolbarActivity implements  View.OnClickL
  *      public void onClick
  *
  *   SYNOPSIS
- *      public void onClick(View v)
- *      view   --> view object passes the reference to the Image button which triggered the
+ *      public void onClick(View a_view)
+ *      a_view   --> view object passes the reference to the Image button which triggered the
  *                  on-click method.
  *
  *   DESCRIPTION
@@ -153,9 +179,9 @@ public class AssesmentActivity extends ToolbarActivity implements  View.OnClickL
 /**/
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View a_view) {
 
-        switch(v.getId()){
+        switch(a_view.getId()){
 
             case R.id.groupButton: /** Start a new Activity MyCards.java */
                 startActivity(new Intent(getApplicationContext(), GroupsActivity.class));
@@ -176,6 +202,9 @@ public class AssesmentActivity extends ToolbarActivity implements  View.OnClickL
                 startActivity(new Intent(getApplicationContext(), ResourcesActivity.class));
                 finish();
                 break;
+            default:
+                return;
+
         }
     }
 

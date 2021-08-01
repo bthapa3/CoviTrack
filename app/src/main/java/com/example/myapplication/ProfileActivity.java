@@ -33,22 +33,67 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+/**/
+/*
+ *  CLASS DESCRIPTION:
+ *      User Information in Profile View
+ *
+ *  PURPOSE:
+ *     The main purpose of the ProfileActivity is to allow the users to view their basic information like
+ *     name, address, contact number. It also allows them to save their profile picture. Users can edit and
+ *     change their contact number, address, and profile picture as needed using this activity.
+ *
+ *  AUTHOR:
+ *      Bishal Thapa
+ *
+ *  DATE
+ *       4/27/2021
+ */
+/**/
+
 public class ProfileActivity extends ToolbarActivity {
 
-    TextView m_editname, m_editphone , m_showname, m_showphone, m_showemail, m_showcovidstatus;
-    ImageView m_profilepicture;
+    private TextView m_editname, m_editphone , m_showname, m_showphone, m_showemail, m_showcovidstatus;
+    private ImageView m_profilepicture;
     private FirebaseStorage m_storage;
     private StorageReference m_storageRef;
-    // r_id represents the user ID value stored in the database. It helps to uniquely identify a person.
-    String r_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    DatabaseReference user_reference = FirebaseDatabase.getInstance().getReference().child("Users");
-    Users user;
-    private Uri file;
-    //StorageReference profileref = m_storageRef.child("profilepic/" +r_id);
+    // m_id represents the user ID value stored in the database. It helps to uniquely identify a person.
+    private String m_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private DatabaseReference m_userreference = FirebaseDatabase.getInstance().getReference().child("Users");
+    private Users m_user;
+    private Uri m_file;
 
+/**/
+/*
+ *   NAME
+ *      protected void onCreate
+ *
+ *   SYNOPSIS
+ *      protected void onCreate(Bundle a_savedInstanceState)
+ *      Bundle a_savedInstanceState---->reference to a Bundle object
+ *
+ *   DESCRIPTION
+ *      Oncreate method stores the reference for the toolbar,Textviews, Imageviews
+ *      Imagebuttons and buttons. Inside the oncreate method profile image of the user
+ *      is downloaded from the Database and populated on the screen. User information like,
+ *      name, address, contact are also downloaded from the database and populated to the
+ *      appropriate fields. After that, on-click listeners are setup inside on-create
+ *      methods to save the changes if the user modifies any value from the profile.
+ *
+ *   RETURNS
+ *       Nothing
+ *
+ *   AUTHOR
+ *       Bishal Thapa
+ *
+ *   DATE
+ *       4/27/2021
+ *
+ */
+/**/
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle a_savedInstanceState) {
+        super.onCreate(a_savedInstanceState);
         setContentView(R.layout.activity_profile);
 
         Toolbar toolbar=findViewById(R.id.toolbar);
@@ -67,35 +112,17 @@ public class ProfileActivity extends ToolbarActivity {
         m_storageRef= m_storage.getReference();
         //populating user info on create
 
+        //Database reference to get the profile picture of the current user.
+        StorageReference pictureref = m_storageRef.child("profilepic/"+ m_id);
 
-        StorageReference pictureref = m_storageRef.child("profilepic/"+ r_id);
-
-        /*final long ImageSize = 2048 * 2048;
-
-        try{
-            pictureref.getBytes(ImageSize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                @Override
-                public void onSuccess(byte[] bytes) {
-                    Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                    m_profilepicture.setImageBitmap(bitmap);
-                    // Data for "images/island.jpg" is returns, use this as needed
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // toast error status probably file size too big
-                    // Handle any errors
-                }
-            });
-        }
-        catch (Exception e){
-            System.out.println("Image doesnot exist"+ e);
-        }*/
-
+        //getting picture of the user from the database using the URL.
         pictureref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                // Got the download URL for 'users/me/profile.png'
+                //Glide library is used to get the picture using URL
+                //Glide makes it better to load as it saves the results in cache
+                //and helps for smooth transition during reloads
+                //Also Circle crop can be applied for profile pictures.
                 Glide.with(ProfileActivity.this)
                         .load(uri)
                         .centerCrop()
@@ -106,20 +133,23 @@ public class ProfileActivity extends ToolbarActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
+                //Incase the profile picture is not present.
+                Toast.makeText(ProfileActivity.this,"Please upload the profile picture!!!",Toast.LENGTH_SHORT).show();
             }
         });
 
-        user_reference.child(r_id).addValueEventListener(new ValueEventListener() {
+        //Getting the user class from the database
+        //User class has users name,email, phone and covidstatus saved.
+        m_userreference.child(m_id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot Datasnapshot) {
 
                 //getting the user's information from the database that needs to modified and storing it as Users class.
-                 user = Datasnapshot.getValue(Users.class);
-                 m_showname.setText(user.getFull_name());
-                 m_showemail.setText(user.getEmail());
-                 m_showphone.setText(user.getPhone_number());
-                 m_showcovidstatus.setText(user.getInfected().toString());
+                 m_user = Datasnapshot.getValue(Users.class);
+                 m_showname.setText(m_user.getFull_name());
+                 m_showemail.setText(m_user.getEmail());
+                 m_showphone.setText(m_user.getPhone_number());
+                 m_showcovidstatus.setText(m_user.getInfected().toString());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -129,40 +159,47 @@ public class ProfileActivity extends ToolbarActivity {
             }
         });
 
-
+        //If the user edits his name on-click listener will be activated.
         m_editname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //If the user is trying to edit
+                //making the field editable with focus
                 if(m_editname.getText().equals("Edit")) {
                     m_showname.setInputType(InputType.TYPE_CLASS_TEXT);
                     m_showname.requestFocus();
                     m_editname.setText("Save");
 
                 }
+                //If the user saved after changing name
+                //making the text field non-editable
                 else{
                     m_editname.setText("Edit");
                     m_showname.setInputType(InputType.TYPE_NULL);
-                    user.setFull_name(m_showname.getText().toString());
-                    user_reference.child(r_id).setValue(user);
-                    System.out.println(user.getFull_name());
+                    m_user.setFull_name(m_showname.getText().toString());
+                    m_userreference.child(m_id).setValue(m_user);
                 }
             }
         });
+
+        //If the user clicks on the edit phone number button
         m_editphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //If the user tries to change the number
                 if(m_editphone.getText().equals("Edit")) {
                     m_showphone.setInputType(InputType.TYPE_CLASS_NUMBER);
                     m_showphone.requestFocus();
                     m_editphone.setText("Save");
 
                 }
+                //if the user tries to save the number.
                 else{
                     m_editphone.setText("Edit");
                     m_showname.setInputType(InputType.TYPE_NULL);
-                    user.setPhone_number(m_showphone.getText().toString());
-                    user_reference.child(r_id).setValue(user);
+                    m_user.setPhone_number(m_showphone.getText().toString());
+                    m_userreference.child(m_id).setValue(m_user);
 
                 }
             }
@@ -170,6 +207,7 @@ public class ProfileActivity extends ToolbarActivity {
 
         });
 
+        //If the user clicks on the current profile picture he can upload a new profile picture.
         m_profilepicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,6 +218,30 @@ public class ProfileActivity extends ToolbarActivity {
 
     }
 
+/**/
+/*
+ *   NAME
+ *      public void Getprofilepic
+ *
+ *   SYNOPSIS
+ *      public void Getprofilepic()
+ *      no parameters.
+ *
+ *   DESCRIPTION
+ *     This function allows the user to select a new image from the user device by using get content.
+ *     The image that user selects will be than uploaded as new profile picture.
+ *
+ *   RETURNS
+ *       Nothing
+ *
+ *   AUTHOR
+ *       Bishal Thapa
+ *
+ *   DATE
+ *       4/27/2021
+ *
+ */
+/**/
 
     private void Getprofilepic(){
         Intent intent=new Intent();
@@ -188,36 +250,92 @@ public class ProfileActivity extends ToolbarActivity {
         startActivityForResult(intent,1);
     }
 
+/**/
+/*
+ *   NAME
+ *      protected void onActivityResult
+ *
+ *   SYNOPSIS
+ *      protected void onActivityResult(int a_requestCode, int a_resultCode, @Nullable Intent a_data) {
+ *          int a_requestCode   --> The request code of the get content window
+ *          int a_resultCode    --> result code stores the result of the activity based on the success of the Action_get_content.
+ *          Intent a_data       --> data has the profile picture that the user selected from his device.
+ *
+ *   DESCRIPTION
+ *    This function onActivityResult helps to store the image selected by the user to the file
+ *      by checking if the result of Action_get_content was successful and data is not null.
+ *
+ *   RETURNS
+ *       Nothing
+ *
+ *   AUTHOR
+ *       Bishal Thapa
+ *
+ *   DATE
+ *       4/27/2021
+ *
+ */
+/**/
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1 && resultCode==RESULT_OK && data!=null &&data.getData()!=null){
-            file=data.getData();
-            m_profilepicture.setImageURI(file);
-            UploadResults();
+    protected void onActivityResult(int a_requestCode, int a_resultCode, @Nullable Intent a_data) {
+        super.onActivityResult(a_requestCode, a_resultCode, a_data);
+        if(a_requestCode==1 && a_resultCode==RESULT_OK && a_data!=null && a_data.getData()!=null){
+            m_file=a_data.getData();
+            m_profilepicture.setImageURI(m_file);
+            UploadPicture();
 
         }
     }
 
-    private void UploadResults() {
-        ProgressDialog pd = new ProgressDialog(this);
-        pd.setTitle("Uploading File>> ");
-        pd.show();
+/**/
+/*
+ *   NAME
+ *      public void UploadPicture
+ *
+ *   SYNOPSIS
+ *      public void UploadPicture()
+ *      no parameters
+ *
+ *   DESCRIPTION
+ *      This function takes the image file that the user selected and uploads it to the database.
+ *      It also shows the progress percentage to the user so that if the file is too big, user will
+ *      be able to view the progress, file upload task has made.
+ *
+ *   RETURNS
+ *       Nothing
+ *
+ *   AUTHOR
+ *       Bishal Thapa
+ *
+ *   DATE
+ *       4/27/2021
+ *
+ */
+/**/
+    private void UploadPicture() {
 
+        ProgressDialog progressdialog = new ProgressDialog(this);
+        progressdialog.setTitle("Uploading File>> ");
+        progressdialog.show();
 
-        StorageReference pictureref = m_storageRef.child("profilepic/"+ r_id);
-        pictureref.putFile(file)
+        StorageReference pictureref = m_storageRef.child("profilepic/"+ m_id);
+        //It uses the file from OnActivityResults and uploads that using pictureref reference.
+        pictureref.putFile(m_file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        pd.dismiss();
+                        progressdialog.dismiss();
                         Snackbar.make(findViewById(android.R.id.content),"Image uploaded",Snackbar.LENGTH_LONG).show();
+                        //restarting to apply changes on image preview.
+                        finish();
+                        startActivity(getIntent());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        pd.dismiss();
+                        progressdialog.dismiss();
                         Toast.makeText(getApplicationContext(),"Failed to Update",Toast.LENGTH_LONG).show();
                     }
                 })
@@ -225,20 +343,9 @@ public class ProfileActivity extends ToolbarActivity {
                     @Override
                     public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
                         double progessPercent=(100.00 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
-                        pd.setMessage("Progress: " + (int) progessPercent+ "%");
+                        progressdialog.setMessage("Progress: " + (int) progessPercent+ "%");
                     }
 
                 });
-
-
-        // Create a reference to 'images/mountains.jpg'
-        //StorageReference mountainImagesRef = storageRef.child("images/mountains.jpg");
-
-        // While the file names are the same, the references point to different files
-        //mountainsRef.getName().equals(mountainImagesRef.getName());    // true
-        //mountainsRef.getPath().equals(mountainImagesRef.getPath())
     }
-
-
-
 }
