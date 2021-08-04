@@ -105,7 +105,7 @@ public class UploadActivity extends ToolbarActivity implements View.OnClickListe
         m_storageRef= m_storage.getReference();
 
         //Image buttons for navigating through the 5 main activities.
-        ImageButton assessbutton=findViewById(R.id.assesButton);
+        ImageButton assessbutton=findViewById(R.id.assessButton);
         ImageButton homebutton=findViewById(R.id.homeButton);
         ImageButton resourcebutton=findViewById(R.id.resourcesButton);
         ImageButton groupsbutton=findViewById(R.id.groupButton);
@@ -431,18 +431,13 @@ public class UploadActivity extends ToolbarActivity implements View.OnClickListe
 
         switch(a_view.getId()){
 
-            case R.id.assessButton: /** Start a new Activity MyCards.java */
+            case R.id.assessButton:
                 startActivity(new Intent(getApplicationContext(), AssesmentActivity.class));
                 finish();
                 break;
 
-            case R.id.homeButton: /**erDialog when click on Exit */
+            case R.id.homeButton:
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-                break;
-
-            case R.id.uploadButton:
-                startActivity(new Intent(getApplicationContext(), UploadActivity.class));
                 finish();
                 break;
 

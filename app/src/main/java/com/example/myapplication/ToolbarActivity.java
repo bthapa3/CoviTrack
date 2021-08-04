@@ -61,7 +61,7 @@ public class ToolbarActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //default title for the toolbar
-        toolbar.setTitle("COVID-19 Management App");
+        toolbar.setTitle("Covid-19 Management App");
     }
 
 /**/
