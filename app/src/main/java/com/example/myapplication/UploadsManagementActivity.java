@@ -155,7 +155,7 @@ public class UploadsManagementActivity extends ToolbarActivity implements UserIn
             m_recview.setAdapter(m_adapter);
         }
         catch (Exception e){
-            System.out.println("error happens here"+e);
+            System.out.println("Exception occured: "+e);
         }
 
     }

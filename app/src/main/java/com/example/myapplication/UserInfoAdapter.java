@@ -49,17 +49,11 @@ import com.google.firebase.storage.StorageReference;
 public class UserInfoAdapter extends FirebaseRecyclerAdapter<Users,UserInfoAdapter.myviewholder> {
 
 
-    /**
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
-     * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
     private OnNoteListener m_OnNoteListener;
     private Context m_context;
     private String m_inventorytype;
 
-
+    //constructor for the UserInfoAdapter class.
     public UserInfoAdapter(@NonNull FirebaseRecyclerOptions<Users> options, OnNoteListener onNoteListener, Context a_context,String a_inventorytype) {
         super(options);
         this.m_OnNoteListener=onNoteListener;

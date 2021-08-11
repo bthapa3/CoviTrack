@@ -227,7 +227,7 @@ public class BackgroundLocationTracker extends BroadcastReceiver implements Loca
                 }
                 else {
                     //could not get the snapshot so printing the exception type
-                    Log.d(TAG, "Error Occurred with exception  ", task.getException());
+                    Log.d(TAG, "Error Occurred with exception: ", task.getException());
                 }
             }
         });

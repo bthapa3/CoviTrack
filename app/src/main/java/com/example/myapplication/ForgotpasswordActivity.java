@@ -136,12 +136,14 @@ public class ForgotpasswordActivity extends AppCompatActivity {
         String email=m_email.getText().toString().trim();
         if(email.isEmpty()){
             m_email.setError("Email value invalid!! Enter valid Email");
+            //cursor moves to the input text field
             m_email.requestFocus();
             return;
 
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             m_email.setError("Please provide valid email");
+            //cursor moves to the input text field
             m_email.requestFocus();
             return;
         }

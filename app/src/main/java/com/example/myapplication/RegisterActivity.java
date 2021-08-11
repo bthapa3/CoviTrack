@@ -112,6 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String password=m_Password.getText().toString().trim();
                 String passwordCheck=m_PasswordCheck.getText().toString().trim();
 
+                //checking validity of the email and password entered
                 if (TextUtils.isEmpty(email)){
                     m_Email.setError("Email Value not Found");
                     return;
@@ -123,7 +124,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (!password.equals(passwordCheck)){
                     m_PasswordCheck.setError("Passwords value do not match with each other");
-
                     Toast.makeText(RegisterActivity.this, m_Password.getText() , Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -132,7 +132,10 @@ public class RegisterActivity extends AppCompatActivity {
                     m_Password.setError("Password must be at least 8 characters long");
                     return;
                 }
+
+                //In order to show the progress of creating user so that user donot try to create account twice.
                 m_progressBar.setVisibility(View.VISIBLE);
+                //regsitering user account with firebase which also sets up username and password for authentication.
                 m_fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -144,6 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         else{
                             Toast.makeText(RegisterActivity.this, "failed to create user", Toast.LENGTH_SHORT).show();
+                            //progress bar invisible after work is done.
                             m_progressBar.setVisibility(View.INVISIBLE);
                         }
                     }
@@ -154,31 +158,31 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-/**/
-/*
- *   NAME
- *       private void StoreUsersData
- *
- *   SYNOPSIS
- *       private void StoreUsersData()
- *      no parameters.
- *
- *   DESCRIPTION
- *      StoreUsersData function saves the data of the user to the database in the form of User class.
- *      After setting up an user authorization with Email and Password, Users email password, Name and
- *      contact name are saved on the database in the form of the user class.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *       private void StoreUsersData
+     *
+     *   SYNOPSIS
+     *       private void StoreUsersData()
+     *      no parameters.
+     *
+     *   DESCRIPTION
+     *      StoreUsersData function saves the data of the user to the database in the form of User class.
+     *      After setting up an user authorization with Email and Password, Users email password, Name and
+     *      contact name are saved on the database in the form of the user class.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     private void StoreUsersData() {
 
@@ -188,7 +192,9 @@ public class RegisterActivity extends AppCompatActivity {
         m_userID=m_fAuth.getCurrentUser().getUid();
         FirebaseDatabase rootNode=FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("Users");
+        //Creating a user class object and storing all the user data providing during signup process.
         Users Userdata=new Users(m_userID, name,email,phone,"null","null","null","null",0,"member",false,false);
+        //Saving the user object to the database for future refrence.
         reference.child(m_userID).setValue(Userdata);
 
     }

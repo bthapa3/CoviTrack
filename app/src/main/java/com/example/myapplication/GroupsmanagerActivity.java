@@ -181,6 +181,7 @@ public class GroupsmanagerActivity extends AppCompatActivity implements View.OnC
                                 Toast.makeText(GroupsmanagerActivity.this, "Group not found on Database", Toast.LENGTH_SHORT).show();
                             }
                             else{
+                                //deletes a group
                                 m_groupreference.child(m_removegroup.getText().toString()).setValue(null);
                                 Toast.makeText(GroupsmanagerActivity.this, task.getResult().getValue().toString()+ " deleted", Toast.LENGTH_SHORT).show();
 
@@ -297,12 +298,12 @@ public class GroupsmanagerActivity extends AppCompatActivity implements View.OnC
 
         switch(a_view.getId()){
 
-            case R.id.assessButton: /** Start a new Activity MyCards.java */
+            case R.id.assessButton:
                 startActivity(new Intent(getApplicationContext(), AssesmentActivity.class));
                 finish();
                 break;
 
-            case R.id.homeButton: /**erDialog when click on Exit */
+            case R.id.homeButton:
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
                 break;

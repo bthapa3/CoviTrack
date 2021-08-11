@@ -504,6 +504,7 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
                 //getting the user's information from the database that needs to modified and storing it as Users class.
                 Users user = Datasnapshot.child(m_userid).getValue(Users.class);
 
+                //reflecting the database value to UI component.
                 if(switchState.equals(true)){
                     user.setInfected(true);
                     m_userreference.child(m_userid).setValue(user);

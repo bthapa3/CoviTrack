@@ -597,12 +597,12 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
 
          switch(a_view.getId()){
 
-             case R.id.assessButton: /** Start a new Activity MyCards.java */
+             case R.id.assessButton:
                  startActivity(new Intent(getApplicationContext(), AssesmentActivity.class));
                  finish();
                  break;
 
-             case R.id.homeButton: /**erDialog when click on Exit */
+             case R.id.homeButton:
                  startActivity(new Intent(getApplicationContext(), MainActivity.class));
                  finish();
                  break;
