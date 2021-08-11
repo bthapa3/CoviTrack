@@ -140,6 +140,7 @@
 
         <ImageButton
             android:id="@+id/imageButton3"
+            android:backgroundTint="#87CEFA"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
