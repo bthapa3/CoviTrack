@@ -63,34 +63,34 @@ public class ProfileActivity extends ToolbarActivity {
     private Users m_user;
     private Uri m_file;
 
-/**/
-/*
- *   NAME
- *      protected void onCreate
- *
- *   SYNOPSIS
- *      protected void onCreate(Bundle a_savedInstanceState)
- *      Bundle a_savedInstanceState---->reference to a Bundle object
- *
- *   DESCRIPTION
- *      Oncreate method stores the reference for the toolbar,Textviews, Imageviews
- *      Imagebuttons and buttons. Inside the oncreate method profile image of the user
- *      is downloaded from the Database and populated on the screen. User information like,
- *      name, address, contact are also downloaded from the database and populated to the
- *      appropriate fields. After that, on-click listeners are setup inside on-create
- *      methods to save the changes if the user modifies any value from the profile.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      protected void onCreate
+     *
+     *   SYNOPSIS
+     *      protected void onCreate(Bundle a_savedInstanceState)
+     *      Bundle a_savedInstanceState---->reference to a Bundle object
+     *
+     *   DESCRIPTION
+     *      Oncreate method stores the reference for the toolbar,Textviews, Imageviews
+     *      Imagebuttons and buttons. Inside the oncreate method profile image of the user
+     *      is downloaded from the Database and populated on the screen. User information like,
+     *      name, address, contact are also downloaded from the database and populated to the
+     *      appropriate fields. After that, on-click listeners are setup inside on-create
+     *      methods to save the changes if the user modifies any value from the profile.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
     protected void onCreate(Bundle a_savedInstanceState) {
         super.onCreate(a_savedInstanceState);
@@ -218,30 +218,30 @@ public class ProfileActivity extends ToolbarActivity {
 
     }
 
-/**/
-/*
- *   NAME
- *      public void Getprofilepic
- *
- *   SYNOPSIS
- *      public void Getprofilepic()
- *      no parameters.
- *
- *   DESCRIPTION
- *     This function allows the user to select a new image from the user device by using get content.
- *     The image that user selects will be than uploaded as new profile picture.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public void Getprofilepic
+     *
+     *   SYNOPSIS
+     *      public void Getprofilepic()
+     *      no parameters.
+     *
+     *   DESCRIPTION
+     *     This function allows the user to select a new image from the user device by using get content.
+     *     The image that user selects will be than uploaded as new profile picture.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     private void Getprofilepic(){
         Intent intent=new Intent();
@@ -250,32 +250,32 @@ public class ProfileActivity extends ToolbarActivity {
         startActivityForResult(intent,1);
     }
 
-/**/
-/*
- *   NAME
- *      protected void onActivityResult
- *
- *   SYNOPSIS
- *      protected void onActivityResult(int a_requestCode, int a_resultCode, @Nullable Intent a_data) {
- *          int a_requestCode   --> The request code of the get content window
- *          int a_resultCode    --> result code stores the result of the activity based on the success of the Action_get_content.
- *          Intent a_data       --> data has the profile picture that the user selected from his device.
- *
- *   DESCRIPTION
- *    This function onActivityResult helps to store the image selected by the user to the file
- *      by checking if the result of Action_get_content was successful and data is not null.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      protected void onActivityResult
+     *
+     *   SYNOPSIS
+     *      protected void onActivityResult(int a_requestCode, int a_resultCode, @Nullable Intent a_data) {
+     *          int a_requestCode   --> The request code of the get content window
+     *          int a_resultCode    --> result code stores the result of the activity based on the success of the Action_get_content.
+     *          Intent a_data       --> data has the profile picture that the user selected from his device.
+     *
+     *   DESCRIPTION
+     *    This function onActivityResult helps to store the image selected by the user to the file
+     *      by checking if the result of Action_get_content was successful and data is not null.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     @Override
     protected void onActivityResult(int a_requestCode, int a_resultCode, @Nullable Intent a_data) {
@@ -288,31 +288,31 @@ public class ProfileActivity extends ToolbarActivity {
         }
     }
 
-/**/
-/*
- *   NAME
- *      public void UploadPicture
- *
- *   SYNOPSIS
- *      public void UploadPicture()
- *      no parameters
- *
- *   DESCRIPTION
- *      This function takes the image file that the user selected and uploads it to the database.
- *      It also shows the progress percentage to the user so that if the file is too big, user will
- *      be able to view the progress, file upload task has made.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public void UploadPicture
+     *
+     *   SYNOPSIS
+     *      public void UploadPicture()
+     *      no parameters
+     *
+     *   DESCRIPTION
+     *      This function takes the image file that the user selected and uploads it to the database.
+     *      It also shows the progress percentage to the user so that if the file is too big, user will
+     *      be able to view the progress, file upload task has made.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     private void UploadPicture() {
 
         ProgressDialog progressdialog = new ProgressDialog(this);

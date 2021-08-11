@@ -56,11 +56,14 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
 
     // Reference for the Editable text views that stores the names of the respective groups
     private EditText m_group1, m_group2, m_group3, m_group4;
-    private TextView m_button1,m_button2,m_button3,m_button4, m_managegroups;
+    private TextView m_button1,m_button2,m_button3,m_button4;
 
     // m_currentuserID represents the user ID value stored in the database. It helps to uniquely identify a person.
     // As the user is currently logged in we can get it using firebase authorization.
     private String m_currentuserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    //Button that takes the aamin user to groups manager activity.
+    private Button  m_managegroups;
 
     // user reference is the database reference for user names and their related data.
     // It is used when we need to access or delete the groups from database.
@@ -258,13 +261,17 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
 
                 }
                 else {
-                    if(task.getResult().getValue().toString().equals("admin")){
+                    Users user = task.getResult().getValue(Users.class);
+                    String usertype=user.getUsertype();
+                    if(usertype.toString().equals("admin")){
                         //if the user is admin button is visible
                         //visibility is set to invisible by default in xml layout.
                         m_managegroups.setVisibility(View.VISIBLE);
                     }
                     else{
                         //no privilege to edit groups
+                        System.out.println(task.getResult().getValue().toString());
+                        m_managegroups.setVisibility(View.INVISIBLE);
                     }
                 }
             }
@@ -282,35 +289,35 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
     }
 
 
- /**/
- /*
-  *   NAME
-  *     public void ChangeState
-  *
-  *   SYNOPSIS
-  *     public void ChangeState(TextView a_button, EditText a_groupholder,InputMethodManager a_keyboardmanager)
-  *             Textview a_button---> The button which causes the on-click event to trigger while the user enters the value
-  *                                 and saves it.
-  *             InputMethodManager a_keyboardmanager--> Keyboard manager object which allows the soft keyboard to be displayed
-  *                                and be hidden based on the user input expectation.
-  *             EditText a_groupholder--> the name of the group that user has entered on EditText field manually
-  *
-  *
-  *   DESCRIPTION
-  *     ChangeState function works to modify the state of button and the keyboard to
-  *     allow users to input the groups values.
-  *
-  *   RETURNS
-  *       Nothing
-  *
-  *   AUTHOR
-  *       Bishal Thapa
-  *
-  *   DATE
-  *       4/27/2021
-  *
-  */
- /**/
+     /**/
+     /*
+      *   NAME
+      *     public void ChangeState
+      *
+      *   SYNOPSIS
+      *     public void ChangeState(TextView a_button, EditText a_groupholder,InputMethodManager a_keyboardmanager)
+      *             Textview a_button---> The button which causes the on-click event to trigger while the user enters the value
+      *                                 and saves it.
+      *             InputMethodManager a_keyboardmanager--> Keyboard manager object which allows the soft keyboard to be displayed
+      *                                and be hidden based on the user input expectation.
+      *             EditText a_groupholder--> the name of the group that user has entered on EditText field manually
+      *
+      *
+      *   DESCRIPTION
+      *     ChangeState function works to modify the state of button and the keyboard to
+      *     allow users to input the groups values.
+      *
+      *   RETURNS
+      *       Nothing
+      *
+      *   AUTHOR
+      *       Bishal Thapa
+      *
+      *   DATE
+      *       4/27/2021
+      *
+      */
+     /**/
     public void ChangeState(TextView a_button, EditText a_groupholder,InputMethodManager a_keyboardmanager){
         //Text changed from Edit to Save
         a_button.setText("Save");
@@ -324,37 +331,37 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
     }
 
 
- /**/
- /*
-  *   NAME
-  *     public void SaveState
-  *
-  *   SYNOPSIS
-  *     public void SaveState(EditText a_groupholder, String a_groupid,TextView a_button,InputMethodManager a_keyboardmanager)
-  *         EditText a_groupholder--> the name of the group that user has entered on EditText field manually
-  *         String a_groupid---> Groupnumber between 1-4 where the groupname will be stored.
-  *         Textview a_button--->The button which causes the on-click event to trigger while the user enters the value
-  *                             and saves it.
-  *         InputMethodManager a_keyboardmanager--> Keyboard manager object which allows the soft keyboard to be displayed
-  *                             and be hidden based on the user input expectation.
-  *
-  *   DESCRIPTION
-  *     SaveState function allows the users to enter the groups they want to the EditText field and save
-  *     it manually. The user input group name is than checked and if it exists on the groups list,
-  *     the new group is matched with his old groups and than saved on the database.Also the state of
-  *     buttons and the keyboard are also changed to convey the state of the user input process.
-  *
-  *   RETURNS
-  *       Nothing
-  *
-  *   AUTHOR
-  *       Bishal Thapa
-  *
-  *   DATE
-  *       4/27/2021
-  *
-  */
- /**/
+     /**/
+     /*
+      *   NAME
+      *     public void SaveState
+      *
+      *   SYNOPSIS
+      *     public void SaveState(EditText a_groupholder, String a_groupid,TextView a_button,InputMethodManager a_keyboardmanager)
+      *         EditText a_groupholder--> the name of the group that user has entered on EditText field manually
+      *         String a_groupid---> Groupnumber between 1-4 where the groupname will be stored.
+      *         Textview a_button--->The button which causes the on-click event to trigger while the user enters the value
+      *                             and saves it.
+      *         InputMethodManager a_keyboardmanager--> Keyboard manager object which allows the soft keyboard to be displayed
+      *                             and be hidden based on the user input expectation.
+      *
+      *   DESCRIPTION
+      *     SaveState function allows the users to enter the groups they want to the EditText field and save
+      *     it manually. The user input group name is than checked and if it exists on the groups list,
+      *     the new group is matched with his old groups and than saved on the database.Also the state of
+      *     buttons and the keyboard are also changed to convey the state of the user input process.
+      *
+      *   RETURNS
+      *       Nothing
+      *
+      *   AUTHOR
+      *       Bishal Thapa
+      *
+      *   DATE
+      *       4/27/2021
+      *
+      */
+     /**/
     public void SaveState(EditText a_groupholder, String a_groupid,TextView a_button,InputMethodManager a_keyboardmanager){
 
         m_groupreference.child(a_groupholder.getText().toString()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -390,39 +397,39 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
 
     }
 
- /**/
- /*
-  *   NAME
-  *     public void CheckandsetGroup
-  *
-  *   SYNOPSIS
-  *     public void CheckandsetGroup(String a_groupid,String a_groupname)
-  *         String a_groupid--->the group in which the selected groupname is to be stored.
-  *                     can range between group1 to group4
-  *         String a_groupname--->the group which the user has chosen to be placed on.
-  *
-  *   DESCRIPTION
-  *     This function ensures that the groupname that the user chooses is not already present in
-  *     his groups list. If the new group chosen is not already present or duplicated, it will
-  *     be saved in one of the four spots for the groups.The groups list are also updated
-  *     on the database.If the user enters repetitive groups a toast message is shown
-  *     in order to notify the user.
-  *
-  *     Help taken from
-  *     //https://stackoverflow.com/questions/6925156/
-  *     on the topic how-to-avoid-a-toast-if-theres-one-toast-already-being-shown?
-  *
-  *   RETURNS
-  *       Nothing
-  *
-  *   AUTHOR
-  *       Bishal Thapa
-  *
-  *   DATE
-  *       4/27/2021
-  *
-  */
- /**/
+     /**/
+     /*
+      *   NAME
+      *     public void CheckandsetGroup
+      *
+      *   SYNOPSIS
+      *     public void CheckandsetGroup(String a_groupid,String a_groupname)
+      *         String a_groupid--->the group in which the selected groupname is to be stored.
+      *                     can range between group1 to group4
+      *         String a_groupname--->the group which the user has chosen to be placed on.
+      *
+      *   DESCRIPTION
+      *     This function ensures that the groupname that the user chooses is not already present in
+      *     his groups list. If the new group chosen is not already present or duplicated, it will
+      *     be saved in one of the four spots for the groups.The groups list are also updated
+      *     on the database.If the user enters repetitive groups a toast message is shown
+      *     in order to notify the user.
+      *
+      *     Help taken from
+      *     //https://stackoverflow.com/questions/6925156/
+      *     on the topic how-to-avoid-a-toast-if-theres-one-toast-already-being-shown?
+      *
+      *   RETURNS
+      *       Nothing
+      *
+      *   AUTHOR
+      *       Bishal Thapa
+      *
+      *   DATE
+      *       4/27/2021
+      *
+      */
+     /**/
 
      public void CheckandsetGroup(String a_groupid,String a_groupname){
          m_userreference.child(m_currentuserID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -453,30 +460,30 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
 
      }
 
- /**/
- /*
-  *   NAME
-  *          protected void onStart
-  *
-  *   SYNOPSIS
-  *         protected void onStart()
-  *         no parameters
-  *
-  *   DESCRIPTION
-  *         This function helps the adapter to start binding or populating the adapters
-  *         with the values from the database.
-  *
-  *   RETURNS
-  *       Nothing
-  *
-  *   AUTHOR
-  *       Bishal Thapa
-  *
-  *   DATE
-  *       4/27/2021
-  *
-  */
- /**/
+     /**/
+     /*
+      *   NAME
+      *          protected void onStart
+      *
+      *   SYNOPSIS
+      *         protected void onStart()
+      *         no parameters
+      *
+      *   DESCRIPTION
+      *         This function helps the adapter to start binding or populating the adapters
+      *         with the values from the database.
+      *
+      *   RETURNS
+      *       Nothing
+      *
+      *   AUTHOR
+      *       Bishal Thapa
+      *
+      *   DATE
+      *       4/27/2021
+      *
+      */
+     /**/
 
      @Override
      protected void onStart() {
@@ -487,30 +494,30 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
              System.out.println("Error encountered"+ e);
          }
      }
- /**/
- /*
-  *   NAME
-  *          protected void onStop
-  *
-  *   SYNOPSIS
-  *         protected void onStop()
-  *         no parameters
-  *
-  *   DESCRIPTION
-  *         This function helps the adapter to stop binding or populating the adapters
-  *         with the values from the database.
-  *
-  *   RETURNS
-  *       Nothing
-  *
-  *   AUTHOR
-  *       Bishal Thapa
-  *
-  *   DATE
-  *       4/27/2021
-  *
-  */
- /**/
+     /**/
+     /*
+      *   NAME
+      *          protected void onStop
+      *
+      *   SYNOPSIS
+      *         protected void onStop()
+      *         no parameters
+      *
+      *   DESCRIPTION
+      *         This function helps the adapter to stop binding or populating the adapters
+      *         with the values from the database.
+      *
+      *   RETURNS
+      *       Nothing
+      *
+      *   AUTHOR
+      *       Bishal Thapa
+      *
+      *   DATE
+      *       4/27/2021
+      *
+      */
+     /**/
 
      @Override
      protected void onStop() {
@@ -523,30 +530,30 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
          }
      }
 
-/**/
-/*
-*   NAME
-*       public void onBackPressed
-*
-*   SYNOPSIS
-*       public void onBackPressed()
-*       no parameters
-*
-*   DESCRIPTION
-*       This function takes the user back to main activity instead of exiting an app when back button is
-*       pressed.
-*
-*   RETURNS
-*       Nothing
-*
-*   AUTHOR
-*       Bishal Thapa
-*
-*   DATE
-*       4/27/2021
-*
-*/
-/**/
+    /**/
+    /*
+    *   NAME
+    *       public void onBackPressed
+    *
+    *   SYNOPSIS
+    *       public void onBackPressed()
+    *       no parameters
+    *
+    *   DESCRIPTION
+    *       This function takes the user back to main activity instead of exiting an app when back button is
+    *       pressed.
+    *
+    *   RETURNS
+    *       Nothing
+    *
+    *   AUTHOR
+    *       Bishal Thapa
+    *
+    *   DATE
+    *       4/27/2021
+    *
+    */
+    /**/
 
 
      @Override
@@ -558,32 +565,32 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
      }
 
 
- /**/
- /*
-  *   NAME
-  *      public void onClick
-  *
-  *   SYNOPSIS
-  *      public void onClick(View a_view)
-  *      a_view   --> view object passes the reference to the Image button which triggered the
-  *                  on-click method.
-  *
-  *   DESCRIPTION
-  *     This function allows the user to navigate through four different activities of the application.
-  *      It takes View v as an input parameter and captures the ID of the button pressed to
-  *      start the new activity.
-  *
-  *   RETURNS
-  *       Nothing
-  *
-  *   AUTHOR
-  *       Bishal Thapa
-  *
-  *   DATE
-  *       4/27/2021
-  *
-  */
- /**/
+     /**/
+     /*
+      *   NAME
+      *      public void onClick
+      *
+      *   SYNOPSIS
+      *      public void onClick(View a_view)
+      *      a_view   --> view object passes the reference to the Image button which triggered the
+      *                  on-click method.
+      *
+      *   DESCRIPTION
+      *     This function allows the user to navigate through four different activities of the application.
+      *      It takes View v as an input parameter and captures the ID of the button pressed to
+      *      start the new activity.
+      *
+      *   RETURNS
+      *       Nothing
+      *
+      *   AUTHOR
+      *       Bishal Thapa
+      *
+      *   DATE
+      *       4/27/2021
+      *
+      */
+     /**/
 
      @Override
      public void onClick(View a_view) {
@@ -609,6 +616,10 @@ public class GroupsActivity extends  ToolbarActivity implements View.OnClickList
                  startActivity(new Intent(getApplicationContext(), ResourcesActivity.class));
                  finish();
                  break;
+
+             default:
+                 return;
+
          }
      }
 

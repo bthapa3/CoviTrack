@@ -67,32 +67,32 @@ public class UserInfoAdapter extends FirebaseRecyclerAdapter<Users,UserInfoAdapt
         this.m_inventorytype=a_inventorytype;
     }
 
-/**/
-/*
- *   NAME
- *      protected void onBindViewHolder
- *
- *   SYNOPSIS
- *      protected void onBindViewHolder(@NonNull myviewholder a_holder, int a_position, @NonNull UserGroups a_model)
- *      myviewholder a_holder---> myviewholder object that contains reference to individual adapters.
- *      int a_position---> position of the individual adapter in the array of adapters.
- *      User a_model--> User object related to each adapter.
- *
- *   DESCRIPTION
- *      onBindViewHolder Binds the User object values like name, contact and
- *      and images to specific adapters and also sets up an onclick listener to each of them.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      protected void onBindViewHolder
+     *
+     *   SYNOPSIS
+     *      protected void onBindViewHolder(@NonNull myviewholder a_holder, int a_position, @NonNull UserGroups a_model)
+     *      myviewholder a_holder---> myviewholder object that contains reference to individual adapters.
+     *      int a_position---> position of the individual adapter in the array of adapters.
+     *      User a_model--> User object related to each adapter.
+     *
+     *   DESCRIPTION
+     *      onBindViewHolder Binds the User object values like name, contact and
+     *      and images to specific adapters and also sets up an onclick listener to each of them.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
     protected void onBindViewHolder(@NonNull myviewholder a_holder, int a_position, @NonNull Users a_model) {
 
@@ -152,30 +152,30 @@ public class UserInfoAdapter extends FirebaseRecyclerAdapter<Users,UserInfoAdapt
 
     }
 
-/**/
-/*
- *   NAME
- *       public myviewholder onCreateViewHolder
- *
- *   SYNOPSIS
- *       public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
- *          ViewGroup parent--->parent viewgroup that contains other children
- *          int viewType--> View type of the parent group.
- *
- *   DESCRIPTION
- *     onCreateViewHolder creates a new child singleuserrow inside the parent View group.
- *
- *   RETURNS
- *       myviewholder class object.
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *       public myviewholder onCreateViewHolder
+     *
+     *   SYNOPSIS
+     *       public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+     *          ViewGroup parent--->parent viewgroup that contains other children
+     *          int viewType--> View type of the parent group.
+     *
+     *   DESCRIPTION
+     *     onCreateViewHolder creates a new child singleuserrow inside the parent View group.
+     *
+     *   RETURNS
+     *       myviewholder class object.
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     @NonNull
     @Override
@@ -186,31 +186,31 @@ public class UserInfoAdapter extends FirebaseRecyclerAdapter<Users,UserInfoAdapt
 
     }
 
-/**/
-/*
- *   NAME
- *       class myviewholder
- *
- *   SYNOPSIS
- *       class myviewholder extends RecyclerView.ViewHolder implements View.OnClickListener
- *          no parameters.
- *
- *   DESCRIPTION
- *      myviewholder class gets the Imageview's and  textview's id for each adapter and
- *      saves the reference. It also sets up OnNoteListner to setup on-click for
- *      each adapter.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *       class myviewholder
+     *
+     *   SYNOPSIS
+     *       class myviewholder extends RecyclerView.ViewHolder implements View.OnClickListener
+     *          no parameters.
+     *
+     *   DESCRIPTION
+     *      myviewholder class gets the Imageview's and  textview's id for each adapter and
+     *      saves the reference. It also sets up OnNoteListner to setup on-click for
+     *      each adapter.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     class myviewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView name,phone,insurancestat,userid;
@@ -246,31 +246,31 @@ public class UserInfoAdapter extends FirebaseRecyclerAdapter<Users,UserInfoAdapt
 
     }
 
-/**/
-/*
- *   NAME
- *       public interface OnNoteListener
- *
- *   SYNOPSIS
- *       public interface OnNoteListener
- *          no parameters.
- *
- *   DESCRIPTION
- *      This function helps to call OnNoteClick function located inside UploadsManagementActivity
- *      class. It also passes Position of adapter in array of adapters, id of the user file and
- *      filetype which helps UploadsManagementActivity to find file from database.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *       public interface OnNoteListener
+     *
+     *   SYNOPSIS
+     *       public interface OnNoteListener
+     *          no parameters.
+     *
+     *   DESCRIPTION
+     *      This function helps to call OnNoteClick function located inside UploadsManagementActivity
+     *      class. It also passes Position of adapter in array of adapters, id of the user file and
+     *      filetype which helps UploadsManagementActivity to find file from database.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     public interface OnNoteListener{
         void onNoteClick(int position,String ids,String m_inventorytype);
     }

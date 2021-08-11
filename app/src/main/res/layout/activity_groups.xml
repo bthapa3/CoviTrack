@@ -209,6 +209,7 @@
         android:textColor="@color/black"
         android:text="Manage Groups"
         android:textSize="12dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/myrecview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

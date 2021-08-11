@@ -99,35 +99,35 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
     //Toolbar at the top of the page.
     private Toolbar m_toolbar;
 
-/**/
-/*
- *   NAME
- *      protected void onCreate
- *
- *   SYNOPSIS
- *      protected void onCreate(Bundle a_savedInstanceState)
- *      Bundle a_savedInstanceState---->reference to a Bundle object
- *
- *   DESCRIPTION
- *      Oncreate method stores the reference for the toolbar, Imagebuttons and buttons.
- *      During the on-create function weekly covid positive count is loaded from
- *      database and used with m-chart library to display visually to the user.On-click listerner
- *      is also set up so that user can change his current covid status. On the other hand backgroud
- *      process to track the user location is also started from the on-create function.
- *      In order to be able to access location pop-up is shown asking for location
- *      and other permissions that are necessary to run the features successfully.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      protected void onCreate
+     *
+     *   SYNOPSIS
+     *      protected void onCreate(Bundle a_savedInstanceState)
+     *      Bundle a_savedInstanceState---->reference to a Bundle object
+     *
+     *   DESCRIPTION
+     *      Oncreate method stores the reference for the toolbar, Imagebuttons and buttons.
+     *      During the on-create function weekly covid positive count is loaded from
+     *      database and used with m-chart library to display visually to the user.On-click listerner
+     *      is also set up so that user can change his current covid status. On the other hand backgroud
+     *      process to track the user location is also started from the on-create function.
+     *      In order to be able to access location pop-up is shown asking for location
+     *      and other permissions that are necessary to run the features successfully.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
     protected void onCreate(Bundle a_savedInstanceState) {
         super.onCreate(a_savedInstanceState);
@@ -410,32 +410,32 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         moveTaskToBack(true);
     }
 
-/**/
-/*
- *   NAME
- *      public void onClick
- *
- *   SYNOPSIS
- *      public void onClick(View a_view)
- *      a_view   --> view object passes the reference to the Image button which triggered the
- *                  on-click method.
- *
- *   DESCRIPTION
- *     This function allows the user to navigate through four different activities of the application.
- *      It takes View v as an input parameter and captures the ID of the button pressed to
- *      start the new activity.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public void onClick
+     *
+     *   SYNOPSIS
+     *      public void onClick(View a_view)
+     *      a_view   --> view object passes the reference to the Image button which triggered the
+     *                  on-click method.
+     *
+     *   DESCRIPTION
+     *     This function allows the user to navigate through four different activities of the application.
+     *      It takes View v as an input parameter and captures the ID of the button pressed to
+     *      start the new activity.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     @Override
     public void onClick(View a_view) {
@@ -468,31 +468,31 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
     }
 
 
-/**/
-/*
- *   NAME
- *       public void ChangeStatus
- *
- *   SYNOPSIS
- *       public void ChangeStatus(View a_view)
- *          a_view   --> view object passes the reference to the status switch for covid status.
- *
- *   DESCRIPTION
- *     This function is called whenever the user interacts with the switch button. The current
- *     user covid status is read from the database and switched. The changes are also saved
- *      back to the database.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *       public void ChangeStatus
+     *
+     *   SYNOPSIS
+     *       public void ChangeStatus(View a_view)
+     *          a_view   --> view object passes the reference to the status switch for covid status.
+     *
+     *   DESCRIPTION
+     *     This function is called whenever the user interacts with the switch button. The current
+     *     user covid status is read from the database and switched. The changes are also saved
+     *      back to the database.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     public void ChangeStatus(View view){
         m_userreference.addValueEventListener(new ValueEventListener() {

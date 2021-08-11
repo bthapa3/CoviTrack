@@ -67,39 +67,42 @@ import static androidx.core.app.ActivityCompat.requestPermissions;
 /**/
 public class BackgroundLocationTracker extends BroadcastReceiver implements LocationListener {
 
+    //time period for location updates
     public static final int THIRTYMINUTES_TO_MILLISECONDS = 1800000;
+    //distance in meter for the location updates
     public static final int MIN_DISTANCE_METER = 6;
     //approx count of 30 minutes periods employees are expected to stay at work placce. ie 2*7 days*12 hours*2 per hour
+    //this is the max location cordinates saved
     public static final int THIRTY_MINUTES_IN_TWO_WEEKS = 336;
     private LocationManager m_locationManager;
 
-/**/
-/*
- *  NAME
- *      public void onReceive
- *
- *  SYNOPSIS
- *      public void onReceive (Context a_context, Intent a_intent)
- *      a_context---->context for the OnReceive method from BroadcastReceiver.
- *      a_intent---->intent received from the Broadcast receiver
- *
- *  DESCRIPTION
- *      This method checks the user permission and Build version in order to successfully get the
- *      geo-coordinates of the user.If the location cannot be accessed it notifies user through
- *      toast messages.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- *   Help taken from - https://stackoverflow.com/questions/5947775/android-locationmanager-requestlocationupdates
- */
-/**/
+    /**/
+    /*
+     *  NAME
+     *      public void onReceive
+     *
+     *  SYNOPSIS
+     *      public void onReceive (Context a_context, Intent a_intent)
+     *      a_context---->context for the OnReceive method from BroadcastReceiver.
+     *      a_intent---->intent received from the Broadcast receiver
+     *
+     *  DESCRIPTION
+     *      This method checks the user permission and Build version in order to successfully get the
+     *      geo-coordinates of the user.If the location cannot be accessed it notifies user through
+     *      toast messages.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     *   Help taken from - https://stackoverflow.com/questions/5947775/android-locationmanager-requestlocationupdates
+     */
+    /**/
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onReceive (Context a_context, Intent a_intent){

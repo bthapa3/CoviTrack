@@ -73,31 +73,31 @@ public class UploadsManagementActivity extends ToolbarActivity implements UserIn
     //Either stores type (insurance or covid results)
     private String m_inventorytype;
 
-/**/
-/*
- *   NAME
- *      protected void onCreate
- *
- *   SYNOPSIS
- *      protected void onCreate(Bundle a_savedInstanceState)
- *      Bundle a_savedInstanceState---->reference to a Bundle object
- *
- *   DESCRIPTION
- *      On-create method stores the reference for the toolbar and loads
- *      Recycler view which contains the users profile information and the document
- *      the administration is currently viewing.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      protected void onCreate
+     *
+     *   SYNOPSIS
+     *      protected void onCreate(Bundle a_savedInstanceState)
+     *      Bundle a_savedInstanceState---->reference to a Bundle object
+     *
+     *   DESCRIPTION
+     *      On-create method stores the reference for the toolbar and loads
+     *      Recycler view which contains the users profile information and the document
+     *      the administration is currently viewing.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
     protected void onCreate(Bundle a_savedInstanceState) {
 
@@ -160,30 +160,30 @@ public class UploadsManagementActivity extends ToolbarActivity implements UserIn
 
     }
 
-/**/
-/*
- *   NAME
- *          protected void onStart
- *
- *   SYNOPSIS
- *         protected void onStart()
- *         no parameters
- *
- *   DESCRIPTION
- *         This function helps the adapter to start binding or populating the adapters
- *         with the values from the database.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *          protected void onStart
+     *
+     *   SYNOPSIS
+     *         protected void onStart()
+     *         no parameters
+     *
+     *   DESCRIPTION
+     *         This function helps the adapter to start binding or populating the adapters
+     *         with the values from the database.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     @Override
     protected void onStart() {
@@ -195,30 +195,30 @@ public class UploadsManagementActivity extends ToolbarActivity implements UserIn
         }
     }
 
-/**/
-/*
- *   NAME
- *          protected void onStop
- *
- *   SYNOPSIS
- *         protected void onStop()
- *         no parameters
- *
- *   DESCRIPTION
- *         This function helps the adapter to stop binding or populating the adapters
- *         with the values from the database.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *          protected void onStop
+     *
+     *   SYNOPSIS
+     *         protected void onStop()
+     *         no parameters
+     *
+     *   DESCRIPTION
+     *         This function helps the adapter to stop binding or populating the adapters
+     *         with the values from the database.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
     protected void onStop() {
         try{
@@ -230,32 +230,32 @@ public class UploadsManagementActivity extends ToolbarActivity implements UserIn
         }
     }
 
-/**/
-/*
- *   NAME
- *          public void DownloadImage
- *
- *   SYNOPSIS
- *        public void DownloadImage(String a_inventorytype, String a_id)
- *              String a_inventorytype ---> The type of file to be downloaded from database.
- *              String a_id ---> unique id related to the file to be downloaded.
- *
- *   DESCRIPTION
- *         This function initiates the downloading of the image from the databasee.
- *         It uses picture_id reference and gets the file from the firebase database.
- *          It then calls DownloadManager to save file to the device.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *          public void DownloadImage
+     *
+     *   SYNOPSIS
+     *        public void DownloadImage(String a_inventorytype, String a_id)
+     *              String a_inventorytype ---> The type of file to be downloaded from database.
+     *              String a_id ---> unique id related to the file to be downloaded.
+     *
+     *   DESCRIPTION
+     *         This function initiates the downloading of the image from the databasee.
+     *         It uses picture_id reference and gets the file from the firebase database.
+     *          It then calls DownloadManager to save file to the device.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     public void DownloadImage(String a_inventorytype, String a_id){
 
         String picture_id=  FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
@@ -281,36 +281,36 @@ public class UploadsManagementActivity extends ToolbarActivity implements UserIn
         });
 
 
-    }
-/**/
-/*
- *   NAME
- *         public void DownloadManager
- *
- *   SYNOPSIS
- *         public void DownloadManager(Context a_context, String a_fileName, String a_fileExtension, String a_destinationDirectory, String a_url)
- *         Context a_context ----> context from which the function is called
- *         String a_filename ----> name of the file to be saved
- *         String a_fileExtension ----> extension of the file to be saved.
- *         String a_destinationDirectory ----> Directory of the image to be saved.
- *         String a_url ----> image uri changed to string form
- *
- *   DESCRIPTION
- *        This function uses the parameters passed like filename, fileExtension, String url
- *        to create a file to save with appropriate name, format and directory.
- *        It then downloads the file at the requested directory and notifies when completed.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+        }
+    /**/
+    /*
+     *   NAME
+     *         public void DownloadManager
+     *
+     *   SYNOPSIS
+     *         public void DownloadManager(Context a_context, String a_fileName, String a_fileExtension, String a_destinationDirectory, String a_url)
+     *         Context a_context ----> context from which the function is called
+     *         String a_filename ----> name of the file to be saved
+     *         String a_fileExtension ----> extension of the file to be saved.
+     *         String a_destinationDirectory ----> Directory of the image to be saved.
+     *         String a_url ----> image uri changed to string form
+     *
+     *   DESCRIPTION
+     *        This function uses the parameters passed like filename, fileExtension, String url
+     *        to create a file to save with appropriate name, format and directory.
+     *        It then downloads the file at the requested directory and notifies when completed.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     public void DownloadManager(Context a_context, String a_fileName, String a_fileExtension, String a_destinationDirectory, String a_url){
         DownloadManager downloadManager=(DownloadManager) a_context.getSystemService(a_context.DOWNLOAD_SERVICE);
         Uri uri=Uri.parse(a_url);
@@ -320,31 +320,31 @@ public class UploadsManagementActivity extends ToolbarActivity implements UserIn
         downloadManager.enqueue(request);
     }
 
-/**/
-/*
- *   NAME
- *      public void onBackPressed
- *
- *   SYNOPSIS
- *      public void onBackPressed()
- *      no parameters.
- *
- *   DESCRIPTION
- *     This function takes the user to homepage after immediate back button press.
- *      It helps the application to prevent the user from exiting the app with
- *      single back-button press.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public void onBackPressed
+     *
+     *   SYNOPSIS
+     *      public void onBackPressed()
+     *      no parameters.
+     *
+     *   DESCRIPTION
+     *     This function takes the user to homepage after immediate back button press.
+     *      It helps the application to prevent the user from exiting the app with
+     *      single back-button press.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
     public void onBackPressed()
     {
@@ -455,33 +455,33 @@ public class UploadsManagementActivity extends ToolbarActivity implements UserIn
     }
 
 
-/**/
-/*
- *   NAME
- *      public void onNoteClick
- *
- *   SYNOPSIS
- *      public void onNoteClick(int position,String ids,String inventorytype) {
- *      int position  ---> position of the adapter in the recycler view.
- *      String ids ---> user id of the user clicked inside recycler view.
- *      String inventorytype ---> type of the file the user is currently viewing(between insurace and test results)
- *
- *   DESCRIPTION
- *     This function uses the user id of the specific adapter and then displays the photo
- *      uploaded by the user utilizing the id.It also sets up the visibility of the photo
- *      viewer window when function is called.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public void onNoteClick
+     *
+     *   SYNOPSIS
+     *      public void onNoteClick(int position,String ids,String inventorytype) {
+     *      int position  ---> position of the adapter in the recycler view.
+     *      String ids ---> user id of the user clicked inside recycler view.
+     *      String inventorytype ---> type of the file the user is currently viewing(between insurace and test results)
+     *
+     *   DESCRIPTION
+     *     This function uses the user id of the specific adapter and then displays the photo
+     *      uploaded by the user utilizing the id.It also sets up the visibility of the photo
+     *      viewer window when function is called.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
     public void onNoteClick(int a_position,String a_id,String a_inventorytype) {
 

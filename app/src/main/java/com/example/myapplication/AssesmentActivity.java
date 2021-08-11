@@ -94,21 +94,21 @@ public class AssesmentActivity extends ToolbarActivity implements  View.OnClickL
         uploadbutton.setOnClickListener(this);
     }
 
-/**/
-/*
- *  CLASS DESCRIPTION:
- *     callback is called in order to setup a new Webview client.
- *
- *  PURPOSE:
- *      This class extends a webviewclient and allows the webview to load url.
- *
- *  AUTHOR:
- *      Bishal Thapa
- *
- *  DATE
- *      4/27/2021
- */
-/**/
+    /**/
+    /*
+     *  CLASS DESCRIPTION:
+     *     callback is called in order to setup a new Webview client.
+     *
+     *  PURPOSE:
+     *      This class extends a webviewclient and allows the webview to load url.
+     *
+     *  AUTHOR:
+     *      Bishal Thapa
+     *
+     *  DATE
+     *      4/27/2021
+     */
+    /**/
     static class callback extends WebViewClient {
         @Override
         //Gives the host application a chance to handle the key event synchronously.
@@ -117,30 +117,30 @@ public class AssesmentActivity extends ToolbarActivity implements  View.OnClickL
         }
     }
 
-/**/
-/*
-*   NAME
-*       public void onBackPressed
-*
-*   SYNOPSIS
-*       public void onBackPressed()
-*       no parameters
-*
-*   DESCRIPTION
-*       This function takes the user back to main activity instead of exiting an app when back button is
-*       pressed.
-*
-*   RETURNS
-*       Nothing
-*
-*   AUTHOR
-*       Bishal Thapa
-*
-*   DATE
-*       4/27/2021
-*
-*/
-/**/
+    /**/
+    /*
+    *   NAME
+    *       public void onBackPressed
+    *
+    *   SYNOPSIS
+    *       public void onBackPressed()
+    *       no parameters
+    *
+    *   DESCRIPTION
+    *       This function takes the user back to main activity instead of exiting an app when back button is
+    *       pressed.
+    *
+    *   RETURNS
+    *       Nothing
+    *
+    *   AUTHOR
+    *       Bishal Thapa
+    *
+    *   DATE
+    *       4/27/2021
+    *
+    */
+    /**/
 
 
     @Override
@@ -151,32 +151,32 @@ public class AssesmentActivity extends ToolbarActivity implements  View.OnClickL
         finish();
     }
 
-/**/
-/*
- *   NAME
- *      public void onClick
- *
- *   SYNOPSIS
- *      public void onClick(View a_view)
- *      a_view   --> view object passes the reference to the Image button which triggered the
- *                  on-click method.
- *
- *   DESCRIPTION
- *     This function allows the user to navigate through four different activities of the application.
- *      It takes View v as an input parameter and captures the ID of the button pressed to
- *      start the new activity.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public void onClick
+     *
+     *   SYNOPSIS
+     *      public void onClick(View a_view)
+     *      a_view   --> view object passes the reference to the Image button which triggered the
+     *                  on-click method.
+     *
+     *   DESCRIPTION
+     *     This function allows the user to navigate through four different activities of the application.
+     *      It takes View v as an input parameter and captures the ID of the button pressed to
+     *      start the new activity.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     @Override
     public void onClick(View a_view) {

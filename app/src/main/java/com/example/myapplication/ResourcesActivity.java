@@ -149,31 +149,31 @@ public class ResourcesActivity extends ToolbarActivity implements  View.OnClickL
     }
 
 
-/**/
-/*
- *   NAME
- *      public void onBackPressed
- *
- *   SYNOPSIS
- *      public void onBackPressed()
- *      no parameters.
- *
- *   DESCRIPTION
- *     This function takes the user to homepage after immediate back button press.
- *      It helps the application to prevent the user from exiting the app with
- *      single back-button press.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public void onBackPressed
+     *
+     *   SYNOPSIS
+     *      public void onBackPressed()
+     *      no parameters.
+     *
+     *   DESCRIPTION
+     *     This function takes the user to homepage after immediate back button press.
+     *      It helps the application to prevent the user from exiting the app with
+     *      single back-button press.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
     public void onBackPressed()
     {
@@ -182,32 +182,32 @@ public class ResourcesActivity extends ToolbarActivity implements  View.OnClickL
         finish();
     }
 
-/**/
-/*
- *   NAME
- *      public void onClick
- *
- *   SYNOPSIS
- *      public void onClick(View a_view)
- *      a_view   --> view object passes the reference to the Image button which triggered the
- *                  on-click method.
- *
- *   DESCRIPTION
- *     This function allows the user to navigate through four different activities of the application.
- *      It takes View v as an input parameter and captures the ID of the button pressed to
- *      start the new activity.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public void onClick
+     *
+     *   SYNOPSIS
+     *      public void onClick(View a_view)
+     *      a_view   --> view object passes the reference to the Image button which triggered the
+     *                  on-click method.
+     *
+     *   DESCRIPTION
+     *     This function allows the user to navigate through four different activities of the application.
+     *      It takes View v as an input parameter and captures the ID of the button pressed to
+     *      start the new activity.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     @Override
     public void onClick(View a_view) {

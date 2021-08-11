@@ -31,30 +31,30 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ToolbarActivity extends AppCompatActivity {
 
 
-/**/
-/*
- *   NAME
- *      public void setContentView
- *
- *   SYNOPSIS
- *      public void setContentView(int a_layoutResID)
- *      int a_layoutResID ----->Resource ID to be inflated.
- *
- *   DESCRIPTION
- *     setContentView helps the resource to be inflated, adding all top-level views to the activity
- *      It also helps set the default title of the toolbar.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public void setContentView
+     *
+     *   SYNOPSIS
+     *      public void setContentView(int a_layoutResID)
+     *      int a_layoutResID ----->Resource ID to be inflated.
+     *
+     *   DESCRIPTION
+     *     setContentView helps the resource to be inflated, adding all top-level views to the activity
+     *      It also helps set the default title of the toolbar.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
     public void setContentView(int a_layoutResID) {
         super.setContentView(a_layoutResID);
@@ -64,29 +64,29 @@ public class ToolbarActivity extends AppCompatActivity {
         toolbar.setTitle("Covid-19 Management App");
     }
 
-/**/
-/*
- *   NAME
- *      public boolean onCreateOptionsMenu
- *
- *   SYNOPSIS
- *       public boolean onCreateOptionsMenu(Menu a_menu)
- *       Menu a_menu ---> menu which contains the options for the user to select.
- *
- *   DESCRIPTION
- *      This function inflates the menu resource (defined in XML) into the Menu provided in the callback.
- *
- *   RETURNS
- *       boolean true.
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public boolean onCreateOptionsMenu
+     *
+     *   SYNOPSIS
+     *       public boolean onCreateOptionsMenu(Menu a_menu)
+     *       Menu a_menu ---> menu which contains the options for the user to select.
+     *
+     *   DESCRIPTION
+     *      This function inflates the menu resource (defined in XML) into the Menu provided in the callback.
+     *
+     *   RETURNS
+     *       boolean true.
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
     public boolean onCreateOptionsMenu(Menu a_menu) {
         MenuInflater inflater=getMenuInflater();
@@ -94,31 +94,31 @@ public class ToolbarActivity extends AppCompatActivity {
         return true;
     }
 
-/**/
-/*
- *   NAME
- *      public boolean onOptionsItemSelected
- *
- *   SYNOPSIS
- *      public boolean onOptionsItemSelected(@NonNull MenuItem item)
- *      @NonNull MenuItem item ---> the list of options inside the menu(logout, forgot_password and profile)
- *
- *   DESCRIPTION
- *      OnoptionsItemSelected function helps to find the options selected from the menu
- *      and to performa actions based on that. User can logout, change password or
- *      view their profile.
- *
- *   RETURNS
- *       returns boolean value based on if the menu item is successfully handled.
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public boolean onOptionsItemSelected
+     *
+     *   SYNOPSIS
+     *      public boolean onOptionsItemSelected(@NonNull MenuItem item)
+     *      @NonNull MenuItem item ---> the list of options inside the menu(logout, forgot_password and profile)
+     *
+     *   DESCRIPTION
+     *      OnoptionsItemSelected function helps to find the options selected from the menu
+     *      and to performa actions based on that. User can logout, change password or
+     *      view their profile.
+     *
+     *   RETURNS
+     *       returns boolean value based on if the menu item is successfully handled.
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem a_item) {
 

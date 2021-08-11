@@ -45,32 +45,32 @@ public class  GroupsAdapter extends FirebaseRecyclerAdapter<UserGroups,GroupsAda
         super(options);
     }
 
-/**/
-/*
- *   NAME
- *       protected void onBindViewHolder
- *
- *   SYNOPSIS
- *      protected void onBindViewHolder(@NonNull myviewholder a_holder, int a_position, @NonNull UserGroups a_model)
- *      myviewholder a_holder---> myviewholder object that contains reference to individual adapters.
- *      int a_position---> position of the individual adapter in the array of adapters.
- *      UserGroups a_model--> UserGroups object related to each adapter.
- *
- *   DESCRIPTION
- *      onBindViewHolder Binds the UserGroups object value to specific adapters and also
- *      sets up an onclick listener to each of them.
- *
- *   RETURNS
- *      Nothing
- *
- *   AUTHOR
- *      Bishal Thapa
- *
- *   DATE
- *      07/25/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *       protected void onBindViewHolder
+     *
+     *   SYNOPSIS
+     *      protected void onBindViewHolder(@NonNull myviewholder a_holder, int a_position, @NonNull UserGroups a_model)
+     *      myviewholder a_holder---> myviewholder object that contains reference to individual adapters.
+     *      int a_position---> position of the individual adapter in the array of adapters.
+     *      UserGroups a_model--> UserGroups object related to each adapter.
+     *
+     *   DESCRIPTION
+     *      onBindViewHolder Binds the UserGroups object value to specific adapters and also
+     *      sets up an onclick listener to each of them.
+     *
+     *   RETURNS
+     *      Nothing
+     *
+     *   AUTHOR
+     *      Bishal Thapa
+     *
+     *   DATE
+     *      07/25/2021
+     *
+     */
+    /**/
 
     @Override
     protected void onBindViewHolder(@NonNull myviewholder a_holder, int a_position, @NonNull UserGroups a_model) {
@@ -116,30 +116,30 @@ public class  GroupsAdapter extends FirebaseRecyclerAdapter<UserGroups,GroupsAda
         return new myviewholder(view);
     }
 
-/**/
-/*
- *   NAME
- *       class myviewholder
- *
- *   SYNOPSIS
- *       class myviewholder
- *          no parameters.
- *
- *   DESCRIPTION
- *    myviewholder class gets the Button and textview's id for each adapter and
- *      saves the reference.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *       class myviewholder
+     *
+     *   SYNOPSIS
+     *       class myviewholder
+     *          no parameters.
+     *
+     *   DESCRIPTION
+     *    myviewholder class gets the Button and textview's id for each adapter and
+     *      saves the reference.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     class myviewholder extends RecyclerView.ViewHolder{
 
         TextView m_text;

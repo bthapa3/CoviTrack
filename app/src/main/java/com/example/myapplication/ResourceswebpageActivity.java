@@ -32,32 +32,32 @@ public class ResourceswebpageActivity extends ToolbarActivity implements View.On
 private TextView m_myview;
 private WebView m_resourcepage;
 
-/**/
-/*
- *   NAME
- *      protected void onCreate
- *
- *   SYNOPSIS
- *      protected void onCreate(Bundle a_savedInstanceState)
- *      Bundle a_savedInstanceState---->reference to a Bundle object
- *
- *   DESCRIPTION
- *      On-create method stores the reference for the toolbar and loads
- *      the website by checking the url value found in the bundle of the activity.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- *   Help taken from: https://stackoverflow.com/questions/14876273/simple-example-for-intent-and-bundle for syntax.
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      protected void onCreate
+     *
+     *   SYNOPSIS
+     *      protected void onCreate(Bundle a_savedInstanceState)
+     *      Bundle a_savedInstanceState---->reference to a Bundle object
+     *
+     *   DESCRIPTION
+     *      On-create method stores the reference for the toolbar and loads
+     *      the website by checking the url value found in the bundle of the activity.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     *   Help taken from: https://stackoverflow.com/questions/14876273/simple-example-for-intent-and-bundle for syntax.
+     *
+     */
+    /**/
     @Override
     protected void onCreate(Bundle a_savedInstanceState) {
         super.onCreate(a_savedInstanceState);
@@ -69,13 +69,13 @@ private WebView m_resourcepage;
         toolbar.setTitle("Resources");
         //Bundle is sent from the previous activity.
         //Help taken from: https://stackoverflow.com/questions/14876273/simple-example-for-intent-and-bundle
-        Bundle b = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         //value will store the url
         String value = "";
         //if the url was sent from the previous activity
-        if(b != null){
+        if(bundle != null){
 
-            value = b.getString("website");
+            value = bundle.getString("website");
             m_resourcepage = findViewById(R.id.webView);
             WebSettings webSettings=m_resourcepage.getSettings();
             webSettings.setJavaScriptEnabled(true);
@@ -91,31 +91,31 @@ private WebView m_resourcepage;
         }
     }
 
-/**/
-/*
- *   NAME
- *      public void onBackPressed
- *
- *   SYNOPSIS
- *      public void onBackPressed()
- *      no parameters.
- *
- *   DESCRIPTION
- *     This function takes the user to homepage after immediate back button press.
- *      It helps the application to prevent the user from exiting the app with
- *      single back-button press.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public void onBackPressed
+     *
+     *   SYNOPSIS
+     *      public void onBackPressed()
+     *      no parameters.
+     *
+     *   DESCRIPTION
+     *     This function takes the user to homepage after immediate back button press.
+     *      It helps the application to prevent the user from exiting the app with
+     *      single back-button press.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     @Override
     public void onBackPressed()
@@ -126,32 +126,32 @@ private WebView m_resourcepage;
     }
 
 
-/**/
-/*
- *   NAME
- *      public void onClick
- *
- *   SYNOPSIS
- *      public void onClick(View v)
- *      view   --> view object passes the reference to the Image button which triggered the
- *                  on-click method.
- *
- *   DESCRIPTION
- *     This function allows the user to navigate through four different activities of the application.
- *      It takes View v as an input parameter and captures the ID of the button pressed to
- *      start the new activity.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public void onClick
+     *
+     *   SYNOPSIS
+     *      public void onClick(View v)
+     *      view   --> view object passes the reference to the Image button which triggered the
+     *                  on-click method.
+     *
+     *   DESCRIPTION
+     *     This function allows the user to navigate through four different activities of the application.
+     *      It takes View v as an input parameter and captures the ID of the button pressed to
+     *      start the new activity.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     @Override
     public void onClick(View a_view) {

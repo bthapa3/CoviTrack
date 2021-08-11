@@ -18,10 +18,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -53,39 +58,43 @@ import java.io.IOException;
 
 public class UploadActivity extends ToolbarActivity implements View.OnClickListener {
 
-    private FirebaseStorage m_storage;
+
+    // user reference is the database reference for user names and their related data.
+    private DatabaseReference m_userreference = FirebaseDatabase.getInstance().getReference().child("Users");private FirebaseStorage m_storage;
+
     private StorageReference m_storageRef;
+    private Button m_resultinventory , m_insuranceinventory;
     public ImageView m_resultsview, m_insuranceview;
     private Button m_submitresult , m_submitinsurance ;
     private Uri m_file;
-    private String m_pictureid=  FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+    private String m_currentuserid=  FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
 
-/**/
-/*
- *   NAME
- *      protected void onCreate
- *
- *   SYNOPSIS
- *      protected void onCreate(Bundle savedInstanceState)
- *      Bundle savedInstanceState---->reference to a Bundle object
- *
- *   DESCRIPTION
- *      On-create method stores the reference for the toolbar and loads
- *      the latest saved instances of insurance and covid-19 results as bitmap.
- *      It also sets up the on-click listeners to allow the user to update the
- *      test results and insurance records.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      protected void onCreate
+     *
+     *   SYNOPSIS
+     *      protected void onCreate(Bundle savedInstanceState)
+     *      Bundle savedInstanceState---->reference to a Bundle object
+     *
+     *   DESCRIPTION
+     *      On-create method stores the reference for the toolbar and loads
+     *      the latest saved instances of insurance and covid-19 results as bitmap.
+     *      It also sets up the on-click listeners to allow the user to update the
+     *      test results and insurance records.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
     protected void onCreate(Bundle a_savedInstanceState) {
         super.onCreate(a_savedInstanceState);
@@ -103,6 +112,8 @@ public class UploadActivity extends ToolbarActivity implements View.OnClickListe
         m_insuranceview=findViewById(R.id.insuranceview);
         m_storage=FirebaseStorage.getInstance();
         m_storageRef= m_storage.getReference();
+        m_insuranceinventory= findViewById(R.id.insuranceinventory);
+        m_resultinventory= findViewById(R.id.resultinventory);
 
         //Image buttons for navigating through the 5 main activities.
         ImageButton assessbutton=findViewById(R.id.assessButton);
@@ -118,8 +129,8 @@ public class UploadActivity extends ToolbarActivity implements View.OnClickListe
         groupsbutton.setOnClickListener(this);
 
         // Create a reference with an initial file path and name
-        StorageReference resultseref = m_storageRef.child("testresult/" +m_pictureid);
-        StorageReference insuranceref = m_storageRef.child("insurance/" +m_pictureid);
+        StorageReference resultseref = m_storageRef.child("testresult/" +m_currentuserid);
+        StorageReference insuranceref = m_storageRef.child("insurance/" +m_currentuserid);
 
         //getting the covid results image and displaying as bitmap to image view.
         try{
@@ -185,34 +196,61 @@ public class UploadActivity extends ToolbarActivity implements View.OnClickListe
             }
         });
 
+        //gets the user class object from the database to check if the user is "admin" or "member" .
+        m_userreference.child(m_currentuserid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    //database error
+                    Toast.makeText(UploadActivity.this, "Database error", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    Users user = task.getResult().getValue(Users.class);
+                    String usertype=user.getUsertype();
+                    if(usertype.toString().equals("admin")){
+                        //if the user is admin button is visible
+                        //visibility is set to invisible by default in xml layout.
+                        m_insuranceinventory.setVisibility(View.VISIBLE);
+                        m_resultinventory.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        //no privilege to view inventory
+                        m_insuranceinventory.setVisibility(View.INVISIBLE);
+                        m_resultinventory.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+        });
+
 
     }
 
-/**/
-/*
- *   NAME
- *      public void onBackPressed
- *
- *   SYNOPSIS
- *      public void onBackPressed()
- *          no parameters.
- *
- *   DESCRIPTION
- *     This function takes the user to homepage after immediate back button press.
- *      It helps the application to prevent the user from exiting the app with
- *      single back-button press.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public void onBackPressed
+     *
+     *   SYNOPSIS
+     *      public void onBackPressed()
+     *          no parameters.
+     *
+     *   DESCRIPTION
+     *     This function takes the user to homepage after immediate back button press.
+     *      It helps the application to prevent the user from exiting the app with
+     *      single back-button press.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     @Override
     public void onBackPressed()
@@ -222,30 +260,30 @@ public class UploadActivity extends ToolbarActivity implements View.OnClickListe
         finish();
     }
 
-/**/
-/*
- *   NAME
- *      private void GetResults
- *
- *   SYNOPSIS
- *     private void GetResults()
- *          no parameters
- *
- *   DESCRIPTION
- *      GetResults() method allows to get the image content from the file-explorer or the gallery of
- *      the user device. The file is then processed using onActivityResult
- *
- *    RETURNS
- *      Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      private void GetResults
+     *
+     *   SYNOPSIS
+     *     private void GetResults()
+     *          no parameters
+     *
+     *   DESCRIPTION
+     *      GetResults() method allows to get the image content from the file-explorer or the gallery of
+     *      the user device. The file is then processed using onActivityResult
+     *
+     *    RETURNS
+     *      Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
 
     private void GetResults(){
@@ -255,30 +293,30 @@ public class UploadActivity extends ToolbarActivity implements View.OnClickListe
         startActivityForResult(intent,1);
     }
 
-/**/
-/*
- *   NAME
- *      private void GetInsurance
- *
- *   SYNOPSIS
- *     private void GetInsurance()
- *     no parameters
- *
- *   DESCRIPTION
- *      GetInsurance() method allows to get the image content from the file-explorer or the gallery of
- *      the user device. The file is then processed using onActivityResult
- *
- *    RETURNS
- *      Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      private void GetInsurance
+     *
+     *   SYNOPSIS
+     *     private void GetInsurance()
+     *     no parameters
+     *
+     *   DESCRIPTION
+     *      GetInsurance() method allows to get the image content from the file-explorer or the gallery of
+     *      the user device. The file is then processed using onActivityResult
+     *
+     *    RETURNS
+     *      Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     private void GetInsurance(){
         Intent intent=new Intent();
         intent.setType("image/*");
@@ -286,33 +324,33 @@ public class UploadActivity extends ToolbarActivity implements View.OnClickListe
         startActivityForResult(intent,2);
     }
 
-/**/
-/*
- *   NAME
- *      protected void onActivityResult
- *
- *   SYNOPSIS
- *     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
- *     int requestCode  ---> ID for the request processed.
- *      int resultCode ----> result ID for the request processed.
- *      Intent Data ---> Data passed from the Intent
- *
- *   DESCRIPTION
- *      This method allows to choose the image and the data in then passed to the m_file URI.
- *      Then depending on the type of file submitted, UploadResults function is called
- *      to store the m_file to the database.
- *
- *    RETURNS
- *      Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      protected void onActivityResult
+     *
+     *   SYNOPSIS
+     *     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+     *     int requestCode  ---> ID for the request processed.
+     *      int resultCode ----> result ID for the request processed.
+     *      Intent Data ---> Data passed from the Intent
+     *
+     *   DESCRIPTION
+     *      This method allows to choose the image and the data in then passed to the m_file URI.
+     *      Then depending on the type of file submitted, UploadResults function is called
+     *      to store the m_file to the database.
+     *
+     *    RETURNS
+     *      Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     @Override
     protected void onActivityResult(int a_requestCode, int a_resultCode, @Nullable Intent a_data) {
         super.onActivityResult(a_requestCode, a_resultCode, a_data);
@@ -336,30 +374,30 @@ public class UploadActivity extends ToolbarActivity implements View.OnClickListe
         }
     }
 
-/**/
-/*
- *   NAME
- *      private void UploadResults
- *
- *   SYNOPSIS
- *     private void UploadResults(String a_type)
- *      String a_type ---> type of the file to be uploaded(insurance or test results)
- *
- *   DESCRIPTION
- *      This method helps to upload the image that the user selected to the database.
- *      It also shows progress bar which will be useful if the file size is too large.
- *
- *    RETURNS
- *      Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      private void UploadResults
+     *
+     *   SYNOPSIS
+     *     private void UploadResults(String a_type)
+     *      String a_type ---> type of the file to be uploaded(insurance or test results)
+     *
+     *   DESCRIPTION
+     *      This method helps to upload the image that the user selected to the database.
+     *      It also shows progress bar which will be useful if the file size is too large.
+     *
+     *    RETURNS
+     *      Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
     private void UploadResults(String a_type) {
         ProgressDialog progresdialog = new ProgressDialog(this);
         progresdialog.setTitle("Uploading File>> ");
@@ -368,7 +406,7 @@ public class UploadActivity extends ToolbarActivity implements View.OnClickListe
         //reference to the location in database where the image is to be saved
         //type contains whether it is to be stored in insurance folder or test result folder
         //m_pictureid helps to uniquely identify the user's info while retrieving.
-        StorageReference pictureref = m_storageRef.child(a_type+m_pictureid);
+        StorageReference pictureref = m_storageRef.child(a_type+m_currentuserid);
         pictureref.putFile(m_file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -399,32 +437,32 @@ public class UploadActivity extends ToolbarActivity implements View.OnClickListe
                 });
     }
 
-/**/
-/*
- *   NAME
- *      public void onClick
- *
- *   SYNOPSIS
- *      public void onClick(View a_view)
- *      a_view   --> view object passes the reference to the Image button which triggered the
- *                  on-click method.
- *
- *   DESCRIPTION
- *     This function allows the user to navigate through four different activities of the application.
- *      It takes View v as an input parameter and captures the ID of the button pressed to
- *      start the new activity.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *      public void onClick
+     *
+     *   SYNOPSIS
+     *      public void onClick(View a_view)
+     *      a_view   --> view object passes the reference to the Image button which triggered the
+     *                  on-click method.
+     *
+     *   DESCRIPTION
+     *     This function allows the user to navigate through four different activities of the application.
+     *      It takes View v as an input parameter and captures the ID of the button pressed to
+     *      start the new activity.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     @Override
     public void onClick(View a_view) {
@@ -453,30 +491,30 @@ public class UploadActivity extends ToolbarActivity implements View.OnClickListe
         }
     }
 
-/**/
-/*
- *   NAME
- *       public void GotoResultsInventory
- *
- *   SYNOPSIS
- *       public void GotoResultsInventory(View a_view)
- *          a_view   --> view object passes the reference to any Views present in XML code.
- *
- *   DESCRIPTION
- *     This function allows the admin user to access the inventory of the covid results.
- *      It passes a bundle so the new-activity can decide the type of acitvity to be showed.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *       public void GotoResultsInventory
+     *
+     *   SYNOPSIS
+     *       public void GotoResultsInventory(View a_view)
+     *          a_view   --> view object passes the reference to any Views present in XML code.
+     *
+     *   DESCRIPTION
+     *     This function allows the admin user to access the inventory of the covid results.
+     *      It passes a bundle so the new-activity can decide the type of acitvity to be showed.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     public void GotoResultsInventory(View a_view){
         Intent intent = new Intent(UploadActivity.this, UploadsManagementActivity.class);
@@ -488,30 +526,30 @@ public class UploadActivity extends ToolbarActivity implements View.OnClickListe
 
     }
 
-/**/
-/*
- *   NAME
- *        public void GotoInsuranceInventory
- *
- *   SYNOPSIS
- *       public void GotoInsuranceInventory(View view)
- *      view   --> view object passes the reference to any Views present in XML code.
- *
- *   DESCRIPTION
- *     This function allows the admin user to access the inventory of the covid results.
- *      It passes a bundle so the new-activity can decide the type of acitvity to be showed.
- *
- *   RETURNS
- *       Nothing
- *
- *   AUTHOR
- *       Bishal Thapa
- *
- *   DATE
- *       4/27/2021
- *
- */
-/**/
+    /**/
+    /*
+     *   NAME
+     *        public void GotoInsuranceInventory
+     *
+     *   SYNOPSIS
+     *       public void GotoInsuranceInventory(View view)
+     *      view   --> view object passes the reference to any Views present in XML code.
+     *
+     *   DESCRIPTION
+     *     This function allows the admin user to access the inventory of the covid results.
+     *      It passes a bundle so the new-activity can decide the type of acitvity to be showed.
+     *
+     *   RETURNS
+     *       Nothing
+     *
+     *   AUTHOR
+     *       Bishal Thapa
+     *
+     *   DATE
+     *       4/27/2021
+     *
+     */
+    /**/
 
     public void GotoInsuranceInventory(View a_view){
         Intent intent = new Intent(UploadActivity.this, UploadsManagementActivity.class);
